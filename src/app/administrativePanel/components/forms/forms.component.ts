@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
-import { Form } from '../../interfaces/modelos.interface';
+import {Component, input } from '@angular/core';
+import type { Form } from '../../interfaces/models.interface';
 
 @Component({
   selector: 'app-forms',
   imports: [],
   templateUrl: './forms.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormsComponent {
 

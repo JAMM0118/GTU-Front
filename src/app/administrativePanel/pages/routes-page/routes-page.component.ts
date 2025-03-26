@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {Component } from '@angular/core';
 import { FormsComponent } from "../../components/forms/forms.component";
-import { Form } from '../../interfaces/modelos.interface';
+import type { Form } from '../../interfaces/models.interface';
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-routes-page',
-  imports: [FormsComponent],
+  imports: [FormsComponent, HeaderComponent],
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {

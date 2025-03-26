@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { MenuOption } from '../../../interfaces/modelos.interface';
+import type { MenuOption } from '../../../interfaces/models.interface';
 
 @Component({
   selector: 'app-side-menu-options',
@@ -16,7 +16,6 @@ export class SideMenuOptionsComponent {
       label: 'Home',
       subLabel: 'Home',
       route: '/dashboard/home',
-      style: 'color:#FFD43B;'
     },
     {
       icon: 'fa-solid fa-road',
