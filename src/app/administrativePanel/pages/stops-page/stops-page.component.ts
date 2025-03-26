@@ -18,12 +18,12 @@ export default class StopsPageComponent {
 
       },
       {
-       title: 'Descripcion',
+       title: 'Barrio',
        type: 'password',
 
       },
       {
-       title: 'Horaio de parada',
+       title: 'Ubicación de parada',
        type: 'number',
       },
      ]

@@ -23,9 +23,13 @@ export default class RoutesPageComponent {
 
     },
     {
-     title: 'Horaio de ruta',
+     title: 'Horario de inicio',
      type: 'text',
     },
+    {
+      title: 'Horario de Finalización',
+      type: 'text',
+     },
     {
      title: 'Barrios',
      type: 'text',
