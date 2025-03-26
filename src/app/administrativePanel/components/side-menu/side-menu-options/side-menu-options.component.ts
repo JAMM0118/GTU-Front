@@ -13,21 +13,21 @@ export class SideMenuOptionsComponent {
 
     {
       icon: 'fa-solid fa-house',
-      label: 'Home',
-      subLabel: 'Home',
+      label: 'Inicio',
       route: '/dashboard/home',
+      style: 'color:#FFFFFF;'
     },
     {
-      icon: 'fa-solid fa-road',
-      label: 'Routes',
-      subLabel: '',
+      icon: 'fa-solid fa-bus',
+      label: 'Rutas',
       route: '/dashboard/routes',
+      style: 'color:#FFFFFF;'
     },
     {
-      icon: 'fa-solid fa-traffic-light',
-      label: 'Stops',
-      subLabel: 'Stops',
+      icon: 'fa-solid fa-hand',
+      label: 'Paradas',
       route: '/dashboard/stops',
+      style: 'color:#FFFFFF;'
     },
 
 ]
