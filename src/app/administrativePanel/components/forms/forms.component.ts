@@ -1,4 +1,4 @@
-import {Component, input } from '@angular/core';
+import {Component, Input, input } from '@angular/core';
 import type { Form } from '../../interfaces/models.interface';
 
 @Component({
@@ -9,6 +9,6 @@ import type { Form } from '../../interfaces/models.interface';
 export class FormsComponent {
 
 form = input.required<Form[]>();
-
+@Input() title!: string;
 
 }
