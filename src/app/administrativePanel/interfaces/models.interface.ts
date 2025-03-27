@@ -14,6 +14,11 @@ export interface Form{
   type: 'text' | 'number' |  'checkbox' | 'email' | 'password';
 }
 
+export interface List{
+  name: string;
+  id: string;
+}
+
 
 
 

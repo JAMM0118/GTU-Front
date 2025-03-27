@@ -1,12 +1,13 @@
 <app-header [title]="'Rutas'"></app-header>
 
 @if (!showForm) {
-  <app-toList (createRoute)="toggleForm()"></app-toList>
+  <app-toList (createRoute)="toggleForm()" [list]="routeList"></app-toList>
 }
 
 @if (showForm) {
-  <app-forms [form]="routeForm" title="Crear Ruta"></app-forms>
   <button (click)="toggleForm()" class="bg-green-400 text-white px-4 py-2 rounded mt-4">
     Volver a la Lista
   </button>
+  <app-forms [form]="routeForm" title="Crear Ruta"></app-forms>
+
 }
