@@ -1,13 +1,11 @@
 <div class="isolate bg-white px-6 mt-5 mb-5 py-10 sm:py-5 lg:px-8 rounded-md shadow-md">
   <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-2">
     <h2 class="text-2xl font-bold text-black" style="color: #4A90E2;font-family: 'Poppins', sans-serif;">Lista de Rutas</h2>
-    <button (click)="goToCreateRoute()"
+    <button (click)="goToCreate()"
       class="bg-green-400 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-md">
-      Crear Ruta
+      {{title()}}
     </button>
   </div>
-
-
   <div class="space-y-2">
     @for (item of list(); track item) {
       <div class="flex items-center justify-between bg-blue-100 p-3 rounded-md">

@@ -6,12 +6,11 @@ import { List } from "../../interfaces/models.interface";
   templateUrl: './list-component.html',
 })
 export class ToLisComponent {
-  createRoute = output<void>();
+  createL = output<void>();
+  title = input.required<string>();
 
   list = input.required<List[]>();
-
-
-  goToCreateRoute() {
-    this.createRoute.emit();
+  goToCreate() {
+    this.createL.emit();
   }
 }

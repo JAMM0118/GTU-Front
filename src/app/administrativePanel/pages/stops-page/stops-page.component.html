@@ -1,2 +1,13 @@
 <app-header [title]="'Paradas'"/>
-<app-forms [form]="stopsForm" title="Crear Parada"></app-forms>
+
+@if (!showForm) {
+  <app-toList (createL)="toggleForm()" [list]=" stopsList " title="Crear Paradas"></app-toList>
+}
+
+@if (showForm) {
+  <button (click)="toggleForm()" class="bg-green-400 text-white px-4 py-2 rounded mt-4">
+    Volver a la Lista
+  </button>
+  <app-forms [form]="stopsForm" title="Crear Parada"></app-forms>
+
+}
