@@ -15,28 +15,34 @@ export default class RoutesPageComponent {
     {
      title: 'Nombre de la ruta',
      type: 'text',
+     id: 'name',
 
     },
     {
      title: 'Descripcion',
      type: 'text',
+     id: 'description',
 
     },
     {
      title: 'Horario de inicio',
      type: 'text',
+     id: 'timeStart'
     },
     {
       title: 'Horario de Finalización',
       type: 'text',
+      id: 'timeFinish'
      },
     {
      title: 'Barrios',
      type: 'text',
+     id: 'neighborhood'
     },
     {
      title: 'Paradas',
      type: 'text',
+     id: 'stops'
     },
    ]
 }

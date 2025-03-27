@@ -1,3 +1,4 @@
+import { signal, WritableSignal } from '@angular/core';
 
 export interface MenuOption{
   label: string;
@@ -9,6 +10,7 @@ export interface MenuOption{
 
 export interface Form{
   title: string;
+  id:  string,
   type: 'text' | 'number' |  'checkbox' | 'email' | 'password';
 }
 

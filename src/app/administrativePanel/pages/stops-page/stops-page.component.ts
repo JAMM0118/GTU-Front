@@ -15,16 +15,19 @@ export default class StopsPageComponent {
       {
        title: 'Nombre de la parada',
        type: 'text',
+       id: 'name'
 
       },
       {
        title: 'Barrio',
        type: 'password',
+       id: 'neighborhood'
 
       },
       {
        title: 'Ubicación de parada',
        type: 'number',
+       id: 'location'
       },
      ]
  }
