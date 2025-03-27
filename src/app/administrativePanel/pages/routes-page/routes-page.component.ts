@@ -2,13 +2,15 @@ import {Component } from '@angular/core';
 import { FormsComponent } from "../../components/forms/forms.component";
 import type { Form } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
+import { ToLisComponent } from "../../components/toList/list-component";
 
 @Component({
   selector: 'app-routes-page',
-  imports: [FormsComponent, HeaderComponent],
+  imports: [FormsComponent, HeaderComponent,ToLisComponent],
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {
+  showForm = false;
 
   routeForm: Form[] = [
 
@@ -44,5 +46,9 @@ export default class RoutesPageComponent {
      type: 'text',
      id: 'stops'
     },
-   ]
+   ];
+
+   toggleForm(){
+    this.showForm = !this.showForm;
+   }
 }
