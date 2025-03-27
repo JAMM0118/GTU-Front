@@ -7,7 +7,8 @@ import { List } from "../../interfaces/models.interface";
 })
 export class ToLisComponent {
   createL = output<void>();
-  title = input.required<string>();
+  Bconfirm = input.required<string>();
+  titlePage = input.required<string>();
 
   list = input.required<List[]>();
   goToCreate() {

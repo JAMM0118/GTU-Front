@@ -1,7 +1,7 @@
 <app-header [title]="'Paradas'"/>
 
 @if (!showForm) {
-  <app-toList (createL)="toggleForm()" [list]=" stopsList " title="Crear Paradas"></app-toList>
+  <app-toList (createL)="toggleForm()" [list]=" stopsList " Bconfirm="Crear Paradas" titlePage="Listado de Paradas"></app-toList>
 }
 
 @if (showForm) {

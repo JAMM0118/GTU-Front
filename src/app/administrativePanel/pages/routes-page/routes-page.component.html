@@ -1,7 +1,7 @@
 <app-header [title]="'Rutas'"></app-header>
 
 @if (!showForm) {
-  <app-toList (createL)="toggleForm()" [list]="routeList" title="Crear Ruta"></app-toList>
+  <app-toList (createL)="toggleForm()" [list]="routeList" Bconfirm="Crear Ruta" titlePage="Listado de Rutas"></app-toList>
 }
 
 @if (showForm) {
