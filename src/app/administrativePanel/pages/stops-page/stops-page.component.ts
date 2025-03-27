@@ -16,6 +16,10 @@ export default class StopsPageComponent {
     {
       id: '1',
       name: 'Parada 1'
+    },
+    {
+      id: '2',
+      name: 'Parada 2'
     }
   ]
 

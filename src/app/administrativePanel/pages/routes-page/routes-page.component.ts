@@ -19,15 +19,7 @@ export default class RoutesPageComponent {
     },
     {
       id: '2',
-      name: 'B2010',
-    },
-    {
-      id: '3',
-      name: 'B2010',
-    },
-    {
-      id: '4',
-      name: 'B2010',
+      name: 'B2015',
     }
   ]
 
