@@ -47,4 +47,8 @@ export default class StopsPageComponent {
      toggleForm(){
       this.showForm = !this.showForm;
      }
+
+     deleteStop(id: string) {
+      this.stopsList = this.stopsList.filter(stop => stop.id !== id);
+    }
  }

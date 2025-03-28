@@ -1,13 +1,13 @@
 <div class="isolate bg-white px-6 mt-5 mb-5 py-10 sm:py-5 lg:px-8 rounded-md shadow-md">
   <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-2">
-    <h2 class="text-2xl font-bold text-black" style="color: #4A90E2;font-family: 'Poppins', sans-serif;">{{titlePage()}}</h2>
+    <h2 class="text-2xl font-bold text-black" style="color: #4A90E2;font-family: 'Poppins', sans-serif;">{{titlePage}}</h2>
     <button (click)="goToCreate()"
       class="bg-green-400 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-md">
-      {{Bconfirm()}}
+      {{Bconfirm}}
     </button>
   </div>
   <div class="space-y-2">
-    @for (item of list(); track item) {
+    @for (item of list; track item) {
       <div class="flex items-center justify-between bg-blue-100 p-3 rounded-md">
         <div class="flex items-center space-x-2">
           <input type="radio" class="form-radio text-blue-500" name="route" />
@@ -21,7 +21,7 @@
                 d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
             </svg>
           </button>
-          <button  [id]="item.id" class="text-red-600 hover:text-red-800">
+          <button   (click)="openDeleteModal(item)" class="text-red-600 hover:text-red-800">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -32,3 +32,16 @@
 
   </div>
 </div>
+
+@if (showModal) {
+  <app-confirm-modal 
+    message="¿Estás seguro de que deseas eliminar esta ruta?"
+    [itemName]="itemToDelete?.name"
+    (confirmDelete)="confirmDelete()"
+    (closeModal)="closeDeleteModal()">
+  </app-confirm-modal>
+}
+
+@if (showToast) {
+  <app-toast message="Eliminado correctamente." (close)="showToast = false"></app-toast>
+}

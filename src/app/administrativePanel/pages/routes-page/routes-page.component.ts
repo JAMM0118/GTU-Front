@@ -3,10 +3,11 @@ import { FormsComponent } from "../../components/forms/forms.component";
 import type { Form, List } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ToLisComponent } from "../../components/toList/list-component";
+import { ConfirmModalComponent } from "../../components/modal/confirm-modal.component"
 
 @Component({
   selector: 'app-routes-page',
-  imports: [FormsComponent, HeaderComponent,ToLisComponent],
+  imports: [FormsComponent, HeaderComponent, ToLisComponent],
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {
@@ -62,4 +63,9 @@ export default class RoutesPageComponent {
    toggleForm(){
     this.showForm = !this.showForm;
    }
+
+   deleteRoute(id: string) {
+    this.routeList = this.routeList.filter(route => route.id !== id);
+  }
+  
 }
