@@ -1,13 +1,3 @@
 <app-header [title]="'Rutas'"></app-header>
-
-@if (!showForm) {
-  <app-toList (createL)="toggleForm()" [list]="routeList" Bconfirm="Crear Ruta" titlePage="Listado de Rutas" (deleteItem)="deleteRoute($event)" ></app-toList>
-}
-
-@if (showForm) {
-  <button (click)="toggleForm()" class="bg-green-400 text-white px-4 py-2 rounded mt-4">
-    Volver a la Lista
-  </button>
-  <app-forms [form]="routeForm" title="Crear Ruta"></app-forms>
-
-}
+<app-show-form [form]="routeForm" [list]="routeList" [titleForm]="'Crear Ruta'"
+  [titleList]="'Lista de Rutas'"></app-show-form>

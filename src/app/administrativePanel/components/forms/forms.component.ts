@@ -1,5 +1,5 @@
-import {Component, ElementRef, input, QueryList, ViewChildren } from '@angular/core';
-import type { Form } from '../../interfaces/models.interface';
+import { Component, ElementRef, input, output, QueryList, ViewChildren } from '@angular/core';
+import type { Form, List } from '../../interfaces/models.interface';
 
 @Component({
   selector: 'app-forms',
@@ -10,12 +10,16 @@ export class FormsComponent {
 
   form = input.required<Form[]>();
   title = input.required<string>();
+  comeBackList = output<void>();
+  createItem = output<List>();
 
-
+  goComeBackList() {
+    this.comeBackList.emit();
+  }
 
   // Captura todos los inputs con la referencia inputRef en el DOM
   @ViewChildren('inputRef') inputs!: QueryList<ElementRef>;
-  sendForm(){
+  sendForm() {
     const formValues: Record<string, any> = {};
 
     this.inputs.forEach((input, index) => {
@@ -24,6 +28,15 @@ export class FormsComponent {
         inputElement.type === 'checkbox' ? inputElement.checked : inputElement.value;
     });
 
+    const newList : List = {
+      id:  formValues['id'],
+      name: formValues['name'],
+    }
+
+
+    // Emitir el evento con los valores del formulario
+    this.createItem.emit(newList);
     console.log('Formulario enviado:', formValues);
+    console.log('Lista creada:', newList);
   }
 }

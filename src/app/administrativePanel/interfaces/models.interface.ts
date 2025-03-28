@@ -1,5 +1,3 @@
-import { signal, WritableSignal } from '@angular/core';
-
 export interface MenuOption{
   label: string;
   subLabel?: string;

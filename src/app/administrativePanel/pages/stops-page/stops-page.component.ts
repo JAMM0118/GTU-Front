@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import type { Form, List } from '../../interfaces/models.interface';
-import { FormsComponent } from "../../components/forms/forms.component";
 import { HeaderComponent } from "../../components/header/header.component";
-import { ToLisComponent } from '../../components/toList/list-component';
+import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 
 @Component({
   selector: 'app-stops-page',
-  imports: [FormsComponent, HeaderComponent, ToLisComponent],
+  imports: [HeaderComponent, ShowFormComponent],
   templateUrl: './stops-page.component.html',
 })
 export default class StopsPageComponent {
-  showForm = false;
+
 
   stopsList: List[] = [
     {
@@ -20,35 +19,39 @@ export default class StopsPageComponent {
     {
       id: '2',
       name: 'Parada 2'
-    }
+    },
+    {
+      id: '3',
+      name: 'Parada 3'
+    },
+    {
+      id: '4',
+      name: 'Parada 4'
+    },
   ]
 
   stopsForm: Form[] = [
 
-      {
-       title: 'Nombre de la parada',
-       type: 'text',
-       id: 'name'
+    {
+      title: 'Nombre de la parada',
+      type: 'text',
+      id: 'name'
 
-      },
-      {
-       title: 'Barrio',
-       type: 'password',
-       id: 'neighborhood'
+    },
+    {
+      title: 'Barrio',
+      type: 'password',
+      id: 'neighborhood'
 
-      },
-      {
-       title: 'Ubicación de parada',
-       type: 'number',
-       id: 'location'
-      },
-     ]
+    },
+    {
+      title: 'Ubicación de parada',
+      type: 'number',
+      id: 'location'
+    },
+  ]
 
-     toggleForm(){
-      this.showForm = !this.showForm;
-     }
 
-     deleteStop(id: string) {
-      this.stopsList = this.stopsList.filter(stop => stop.id !== id);
-    }
- }
+
+
+}

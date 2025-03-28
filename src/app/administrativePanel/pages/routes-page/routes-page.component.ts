@@ -1,18 +1,14 @@
 import {Component } from '@angular/core';
-import { FormsComponent } from "../../components/forms/forms.component";
 import type { Form, List } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
-import { ToLisComponent } from "../../components/toList/list-component";
-import { ConfirmModalComponent } from "../../components/modal/confirm-modal.component"
+import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 
 @Component({
   selector: 'app-routes-page',
-  imports: [FormsComponent, HeaderComponent, ToLisComponent],
+  imports: [ HeaderComponent, ShowFormComponent],
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {
-  showForm = false;
-
   routeList: List[] = [
     {
       id: '1',
@@ -60,12 +56,6 @@ export default class RoutesPageComponent {
     },
    ];
 
-   toggleForm(){
-    this.showForm = !this.showForm;
-   }
 
-   deleteRoute(id: string) {
-    this.routeList = this.routeList.filter(route => route.id !== id);
-  }
-  
+
 }

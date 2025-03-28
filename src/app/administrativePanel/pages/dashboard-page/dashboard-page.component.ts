@@ -5,7 +5,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterOutlet, SideMenuComponent, HeaderComponent],
+  imports: [RouterOutlet, SideMenuComponent],
   templateUrl: './dashboard-page.component.html',
 })
 export  default class DashboardComponent { }

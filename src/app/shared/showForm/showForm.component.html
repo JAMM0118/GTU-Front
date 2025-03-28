@@ -1,0 +1,8 @@
+@if (!showForm) {
+  <app-toList (createL)="toggleForm()" [list]="list()" [Bconfirm]="titleForm()" [titlePage]="titleList()" (deleteItem)="deleteItem($event)"></app-toList>
+}
+
+@if (showForm) {
+  <app-forms (comeBackList)="toggleForm()" [form]="form()" [title]="titleForm()" (createItem)="createItem($event)"></app-forms>
+
+}
