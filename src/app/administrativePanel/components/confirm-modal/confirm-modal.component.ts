@@ -1,4 +1,4 @@
-import { Component, output, input } from '@angular/core';
+import { Component, output, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -6,6 +6,10 @@ import { Component, output, input } from '@angular/core';
 })
 export class ConfirmModalComponent {
   itemName = input.required<string>();
-  confirmDelete = output<void>();
+  colorButton = input.required<string>();
+  confirm = output<void>();
   closeModal = output<void>();
+  title = input.required<string>();
+  message = input.required<string>();
+  buttonMessage = input.required<string>();
 }

@@ -13,10 +13,21 @@ export default class RoutesPageComponent {
     {
       id: '1',
       name: 'B2010',
+      description: 'Ruta 1',
+      startTime: '08:00',
+      endTime: '10:00',
+      neighborhood: 'Barrio 1',
+      stops: 'Parada 1, Parada 2',
     },
     {
       id: '2',
       name: 'B2015',
+      description: 'Ruta 2',
+      startTime: '09:00',
+      endTime: '11:00',
+      neighborhood: 'Barrio 2',
+      stops: 'Parada 3, Parada 4',
+
     }
   ]
 
@@ -37,12 +48,12 @@ export default class RoutesPageComponent {
     {
      title: 'Horario de inicio',
      type: 'text',
-     id: 'timeStart'
+     id: 'startTime'
     },
     {
       title: 'Horario de Finalización',
       type: 'text',
-      id: 'timeFinish'
+      id: 'endTime'
      },
     {
      title: 'Barrios',
