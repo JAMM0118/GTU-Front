@@ -6,4 +6,6 @@ import { HeaderComponent } from "../../components/header/header.component";
   imports: [HeaderComponent],
   templateUrl: './home-page.component.html',
 })
-export default class HomePageComponent { }
+export default class HomePageComponent {
+}
+

@@ -1,31 +1,44 @@
-import { signal } from "@angular/core";
-
-export interface MenuOption{
+export interface MenuOption {
   label: string;
-  subLabel?: string;
   route: string;
   icon: string;
   style?: string;
 }
 
-export interface Form{
+export interface Form {
   title: string;
-  id:  string,
-  type: 'text' | 'number' |  'checkbox' | 'email' | 'password' |'checkbox';
-  value? : string | number | boolean | '';
+  id: string,
+  type: 'text' | 'number' | 'checkbox' | 'email' | 'password' | 'checkbox' |
+  'time' | 'tel' | 'date';
+  value?: string | number | boolean | '';
 }
 
-export interface List{
-  name: string;
+export interface List {
   id: string;
-  neighborhood: string | string[];
+  name: string;
   description?: string;
+  neighborhood: string[] | number[] | string | number;
   startTime?: string;
   endTime?: string;
-  stops?: string[] | string;
+  latitude?: number;
+  longitude?: number;
+  stops?: string[] | number[];
   ubicationStop?: string;
 }
 
+
+export interface Neighborhood {
+  id: number;
+  name: string;
+}
+
+export interface Stops {
+  id?: number;
+  name: string;
+  description: string;
+  neighborhoodId: number;
+
+}
 
 
 

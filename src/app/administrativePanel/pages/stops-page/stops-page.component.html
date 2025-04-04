@@ -1,3 +1,4 @@
 <app-header [title]="'Paradas'"/>
-<app-show-form [form]="stopsForm" [list]="stopsList" [titleForm]="'Crear parada'" [titleList]="'Lista de Paradas'"/>
+<app-show-form [form]="stopsForm" [list]="service.stops()" [titleForm]="'Crear parada'" [titleList]="'Lista de Paradas'"
+/>
 

@@ -1,4 +1,4 @@
-import {Component } from '@angular/core';
+import {Component, signal } from '@angular/core';
 import type { Form, List } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
@@ -9,6 +9,7 @@ import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {
+
   routeList: List[] = [
     {
       id: '1',
@@ -17,7 +18,7 @@ export default class RoutesPageComponent {
       startTime: '08:00',
       endTime: '10:00',
       neighborhood: 'Barrio 1',
-      stops: 'Parada 1, Parada 2',
+      stops: ['Parada 1, Parada 2'],
     },
     {
       id: '2',
@@ -26,7 +27,7 @@ export default class RoutesPageComponent {
       startTime: '09:00',
       endTime: '11:00',
       neighborhood: 'Barrio 2',
-      stops: 'Parada 3, Parada 4',
+      stops: ['Parada 3, Parada 4'],
 
     }
   ]
@@ -47,24 +48,15 @@ export default class RoutesPageComponent {
     },
     {
      title: 'Horario de inicio',
-     type: 'text',
+     type: 'time',
      id: 'startTime'
     },
     {
       title: 'Horario de Finalización',
-      type: 'text',
+      type: 'time',
       id: 'endTime'
      },
-    {
-     title: 'Barrios',
-     type: 'text',
-     id: 'neighborhood'
-    },
-    {
-     title: 'Paradas',
-     type: 'text',
-     id: 'stops'
-    },
+
    ];
 
 

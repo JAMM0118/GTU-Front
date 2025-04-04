@@ -1,7 +1,7 @@
 import { Component, input, output, signal } from '@angular/core';
-import { ToLisComponent } from "../../administrativePanel/components/toList/list-component";
+import { ToLisComponent } from "../../administrativePanel/components/list/list-component";
 import { FormsComponent } from "../../administrativePanel/components/forms/forms.component";
-import type { Form, List } from '../../administrativePanel/interfaces/models.interface';
+import type { Form, List, Stops } from '../../administrativePanel/interfaces/models.interface';
 
 @Component({
   selector: 'app-show-form',
@@ -12,7 +12,8 @@ export class ShowFormComponent {
   titleList = input.required<string>();
   titleForm = input.required<string>();
   form = input.required<Form[]>();
-  list = input.required<List[]>();
+  list = input.required<Stops[] | List[]>();
+
   showForm = false;
 
   toggleForm(){
@@ -20,22 +21,22 @@ export class ShowFormComponent {
 
   }
 
-  deleteItem(id: string) {
-    this.list().splice(
-      this.list().findIndex((item) => item.id === id),
-      1
-    );
-  }
-  createItem(newList : List) {
-    this.list().push(newList);
-  }
+  // deleteItem(id: string) {
+  //   this.list().splice(
+  //     this.list().findIndex((item) => item.id === id),
+  //     1
+  //   );
+  // }
+  // createItem(newList : List) {
+  //   this.list().push(newList);
+  // }
 
-  editItem(id: string) {
-   console.log('Editando item con id:', id);
-    console.log('Lista antes de la edición:', this.list().filter((item) => {
-      if(item.id === id) console.log(item.name);
+  // editItem(id: string) {
+  //  console.log('Editando item con id:', id);
+  //   console.log('Lista antes de la edición:', this.list().filter((item) => {
+  //     if(item.id === id) console.log(item.name);
 
-      return item.id == id;}));
+  //     return item.id == id;}));
 
     // const itemIndex = this.list().findIndex((item) => item.id === id);
     // if (itemIndex !== -1) {
@@ -43,6 +44,6 @@ export class ShowFormComponent {
     //   this.list()[0].id = item.id;
     //   this.list()[0].name = item.name;
     // }
-  }
+
 
  }
