@@ -38,7 +38,7 @@ testem.log
 /typings
 
 #proxy.conf.js
-proxy.conf.js
+proxy.conf.json
 
 # System files
 .DS_Store
