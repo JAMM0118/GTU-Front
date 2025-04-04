@@ -1,0 +1,10 @@
+@if (!showForm) {
+  <app-toList (openForm)="toggleForm()" [list]="list()" [buttonName]="titleForm()"
+  [titlePage]="titleList()"></app-toList>
+}
+
+@if (showForm) {
+  <app-forms (comeBackList)="toggleForm()" [form]="form()" [title]="titleForm()"
+  ></app-forms>
+
+}
