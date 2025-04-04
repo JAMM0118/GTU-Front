@@ -54,17 +54,7 @@ export class GtuStopsService {
   }
 
   createStop(stop: Stops) {
-    this.http.post<Stops>(environment.backEndGTU + '/stops', {
-      params: {
-
-        name: stop.name,
-        description: stop.description,
-        neighborhoodId: stop.neighborhoodId,
-        latitude: 40.7128,
-        longitude: -74.006,
-      }
-    }
-
+    this.http.delete<Stops>(environment.backEndGTU + '/stops' + '/' + 3,
 
 
     )
