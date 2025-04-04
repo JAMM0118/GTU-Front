@@ -1,10 +1,13 @@
-import {Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SearchHeaderComponent } from './searchHeader/search-header.component';
+import { NotificationHeaderComponent } from './notificationHeader/notification-header.component';
+import { ProfileHeaderComponent } from './profileHeader/profile-header.component';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [SearchHeaderComponent, NotificationHeaderComponent, ProfileHeaderComponent],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  title = input.required<string>();
+  @Input() title: string = "GTU Project";
 }
