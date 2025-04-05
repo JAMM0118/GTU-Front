@@ -33,16 +33,11 @@
     }
   </div>
 </div>
-
 @if (showModal()) {
 <app-confirm-modal [message]="this.isEdit() ? '¿Está seguro de que desea editar el elemento' :
     '¿Está seguro de que desea eliminar el elemento'" [title]=" this.isEdit() ? 'Confirmar Edicion' :
     'Confirmar Eliminación'" [itemName]="itemChosen()!.name" [buttonMessage]="this.isEdit() ? 'Editar' :'Eliminar'"
-    [colorButton]="this.isEdit() ? 'blue' :'red'"
-   (closeModal)="closeModal()">
+    [colorButton]="this.isEdit() ? 'blue' :'red'" [toastMessage]="this.isEdit() ? 'Elemento editado correctamente'
+    : 'Elemento eliminado correctamente'" (closeModal)="closeModal()" (confirm)="confirmModal()">
 </app-confirm-modal>
-}
-@if (showToast()) {
-<app-toast [message]="this.isEdit() ? 'Elemento editado con éxito' : 'Elemento eliminado con éxito'"
-(close)="!showToast"></app-toast>
 }

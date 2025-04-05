@@ -13,20 +13,6 @@ export interface Form {
   value?: string | number | boolean | '';
 }
 
-export interface List {
-  id: string;
-  name: string;
-  description?: string;
-  neighborhood: string[] | number[] | string | number;
-  startTime?: string;
-  endTime?: string;
-  latitude?: number;
-  longitude?: number;
-  stops?: string[] | number[];
-  ubicationStop?: string;
-}
-
-
 export interface Neighborhood {
   id: number;
   name: string;
@@ -37,6 +23,17 @@ export interface Stops {
   name: string;
   description: string;
   neighborhoodId: number;
+
+}
+
+export interface Routes {
+  id?: number;
+  name: string;
+  description: string;
+  startTime: string,
+  endTime: string,
+  neighborhoods: number[];
+  stops: number[];
 
 }
 

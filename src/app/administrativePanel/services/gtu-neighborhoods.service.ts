@@ -13,6 +13,7 @@ export class GtuNeighborhoodsService {
   neighborhoodsSelected = signal<Neighborhood[]>([]);
   neighborhoodSelected = signal<Neighborhood | null>(null);
   neighborhoods = signal<Neighborhood[]>([]);
+
   constructor() {
     this.loadNeighboorhoods();
     console.log('Service initialized');
@@ -22,7 +23,7 @@ export class GtuNeighborhoodsService {
     this.http.get<NeighborhoodResponse>(environment.backEndGTU + '/neighborhoods')
     .subscribe((res) => {
       console.log('response loaded:', res);
-      const mapper = GtuMapper.mapDataResponsesToMyModelArray(res.data);
+      const mapper = GtuMapper.mapDataNeighborhoodToNeighborhoodArray(res.data);
       console.log('mapped response:', {mapper});
       this.neighborhoods.set(mapper);
     })
@@ -49,9 +50,4 @@ export class GtuNeighborhoodsService {
     this.neighborhoodSelected.set(null);
     console.log('neighborhoods selected cleared');
   }
-
 }
-
-
-
-
