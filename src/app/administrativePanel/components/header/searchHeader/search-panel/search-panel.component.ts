@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { GtuStopsService } from '../../../../services/gtu-stops.service';
 import { SearchFiltersComponent } from '../search-filters/search-filters.component';
 import { SearchLoadingComponent } from '../search-loading/search-loading.component';
-import { SearchEmptyComponent } from '../search-empty/search-empty.component';
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { SearchPanelController } from './search-panel.controller';
 
 @Component({
   selector: 'app-search-panel',
   standalone: true,
-  imports: [CommonModule, SearchFiltersComponent, SearchLoadingComponent, SearchEmptyComponent, SearchResultsComponent],
+  imports: [CommonModule, SearchFiltersComponent, SearchLoadingComponent, SearchResultsComponent],
   templateUrl: './search-panel.component.html',
   styleUrl: './search-panel.component.css',
 })
