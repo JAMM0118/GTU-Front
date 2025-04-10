@@ -5,6 +5,7 @@ import { SearchFiltersComponent } from '../search-filters/search-filters.compone
 import { SearchLoadingComponent } from '../search-loading/search-loading.component';
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { SearchPanelController } from './search-panel.controller';
+import { GtuRoutesService } from '../../../../services/gtu-routes.service';
 
 @Component({
   selector: 'app-search-panel',
@@ -21,8 +22,8 @@ export class SearchPanelComponent implements OnChanges {
   controller: SearchPanelController;
 
   //creo la instancia del controlador y le paso el servicio 
-  constructor(private stopService: GtuStopsService) {
-    this.controller = new SearchPanelController(stopService);
+  constructor(private stopService: GtuStopsService, private routeService: GtuRoutesService) {
+    this.controller = new SearchPanelController(stopService, routeService)
   }
 
   //aqui manejo la carga y limpieza de datos dependiendo de si el panel está activo o no

@@ -1,28 +1,35 @@
 import { signal } from '@angular/core';
 import { GtuStopsService } from '../../../../services/gtu-stops.service';
+import { GtuRoutesService } from '../../../../services/gtu-routes.service';
 
 export class SearchPanelController {
 // aqui se guardan los resultados originales(los de la bd) sin filtros ni búsquedas
-  private rawResults = signal<{ name: string; type: 'parada' }[]>([]);
+  private rawResults = signal<{ name: string; type: string }[]>([]);
   private loading = signal(false);
   private filters = signal<string[]>([]);
 
-  //aqui pues creo la instancia del servicio
-  constructor(private stopService: GtuStopsService) {}
+  //aqui pues creo las instancias de los servicios
+  constructor(private stopService: GtuStopsService, private routeService: GtuRoutesService) {}
 
   loadData() {
     this.loading.set(true);
     setTimeout(() => {
-      const data = this.stopService.stops().map(s => ({
+      const stopData = this.stopService.stops().map(s => ({
         name: s.name,
         type: 'parada' as const //aqui le especifiqué el tipo para el filtro
       }));
-      this.rawResults.set(data);
+      const routeData = this.routeService.routes().map(r => ({
+        name: r.name,
+        type: 'ruta' as const //aqui le especifiqué el tipo para el filtro
+      }));
+      //combinar los datos intercalado y uso .filter(boolean) para eliminar esos espacios vacios al emparejar los arrays
+      this.rawResults.set([...Array(Math.max(stopData.length, routeData.length)).keys()].flatMap(i => [stopData[i], routeData[i]]).filter(Boolean)
+      );
       this.loading.set(false);
     }, 500);
   }
 
-  clearData() {
+  clearData() { 
     this.rawResults.set([]);
   }
 
