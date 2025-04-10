@@ -22,7 +22,13 @@
       }
     </div>
   </form>
-  <app-single-list-form/>
+  @if(bandera()){
+    <app-multiple-items-list [bandera]="false"/>
+    <app-multiple-items-list [bandera]="true"/>
+  }
+  @if(!bandera()){
+    <app-single-list-form/>
+  }
 </div>
 
 @if(showToast()){

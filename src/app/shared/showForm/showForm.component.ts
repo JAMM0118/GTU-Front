@@ -1,7 +1,7 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ToLisComponent } from "../../administrativePanel/components/list/list-component";
 import { FormsComponent } from "../../administrativePanel/components/forms/forms.component";
-import type { Form, List, Stops } from '../../administrativePanel/interfaces/models.interface';
+import type { Form, Routes, Stops } from '../../administrativePanel/interfaces/models.interface';
 
 @Component({
   selector: 'app-show-form',
@@ -11,8 +11,11 @@ import type { Form, List, Stops } from '../../administrativePanel/interfaces/mod
 export class ShowFormComponent {
   titleList = input.required<string>();
   titleForm = input.required<string>();
+  editIem = output<void>();
+  deleteItem = output<number>();
   form = input.required<Form[]>();
-  list = input.required<Stops[] | List[]>();
+  list = input.required<Stops[] | Routes[]>();
+  bandera = input.required<boolean>();
 
   showForm = false;
 
