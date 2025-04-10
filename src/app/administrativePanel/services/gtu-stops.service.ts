@@ -15,7 +15,7 @@ export class GtuStopsService {
 
   constructor() {
     this.loadStops();
-    console.log('Service initialized');
+    console.log('Service initialized'); 
   }
 
   loadStops() {

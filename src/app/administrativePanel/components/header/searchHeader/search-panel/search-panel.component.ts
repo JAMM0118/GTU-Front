@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, input, OnChanges, output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GtuStopsService } from '../../../../services/gtu-stops.service';
 import { SearchFiltersComponent } from '../search-filters/search-filters.component';
@@ -14,10 +14,10 @@ import { SearchPanelController } from './search-panel.controller';
   styleUrl: './search-panel.component.css',
 })
 export class SearchPanelComponent implements OnChanges {
-  @Input() searchTerm = ''; //lo que escribo en el input de busqueda
-  @Input() active = false; 
-  @Output() resultSelected = new EventEmitter<any>();
-
+  searchTerm = input<string>(''); //lo que escribo en el input de busqueda
+  active = input<boolean>(false); 
+  resultSelected = output<any>();
+  
   controller: SearchPanelController;
 
   //creo la instancia del controlador y le paso el servicio 
@@ -25,16 +25,16 @@ export class SearchPanelComponent implements OnChanges {
     this.controller = new SearchPanelController(stopService);
   }
 
-  //esto es que si cambia un valor del input se llame automaticamente la carga de datos
+  //aqui manejo la carga y limpieza de datos dependiendo de si el panel está activo o no
   ngOnChanges(changes: SimpleChanges) {
     if (changes['active']) {
-      this.active ? this.controller.loadData() : this.controller.clearData();
+      this.active() ? this.controller.loadData() : this.controller.clearData();
     }
   }
 
   //los resultados que manda el controlador(ya con filtros y todo)
   results() {
-    return this.controller.getResults(this.searchTerm);
+    return this.controller.getResults(this.searchTerm());
   }
 
   loadingState() {

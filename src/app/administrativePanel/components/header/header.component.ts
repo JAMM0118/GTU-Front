@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SearchHeaderComponent } from './searchHeader/search-header.component';
 import { NotificationHeaderComponent } from './notificationHeader/notification-header.component';
 import { ProfileHeaderComponent } from './profileHeader/profile-header.component';
@@ -9,5 +9,5 @@ import { ProfileHeaderComponent } from './profileHeader/profile-header.component
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  @Input() title: string = "GTU Project";
+  title = input<string>('GTU Project');
 }
