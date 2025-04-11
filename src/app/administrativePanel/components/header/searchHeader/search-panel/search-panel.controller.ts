@@ -4,7 +4,7 @@ import { GtuRoutesService } from '../../../../services/gtu-routes.service';
 
 export class SearchPanelController {
 // aqui se guardan los resultados originales(los de la bd) sin filtros ni búsquedas
-  private rawResults = signal<{ name: string; type: string }[]>([]);
+  private rawResults = signal<{ name: string; type: 'ruta' | 'parada' }[]>([]);
   private loading = signal(false);
   private filters = signal<string[]>([]);
 
