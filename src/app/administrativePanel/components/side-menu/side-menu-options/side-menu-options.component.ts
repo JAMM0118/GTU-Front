@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import type { MenuOption } from '../../../interfaces/models.interface';
+import { LogoutButtonComponent } from "../../logout/logout-button.component";
 
 @Component({
   selector: 'app-side-menu-options',
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, LogoutButtonComponent],
   templateUrl: './side-menu-options.component.html',
 })
 export class SideMenuOptionsComponent {
-
   menuOptions: MenuOption[] = [
 
     {
@@ -29,7 +29,5 @@ export class SideMenuOptionsComponent {
       route: '/dashboard/stops',
       style: 'color:#FFFFFF;'
     },
-
 ]
-
 }
