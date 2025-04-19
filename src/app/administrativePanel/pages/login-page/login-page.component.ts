@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { GtuAuthService } from '../../services/gtu-auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { loginForm } from '../../interfaces/models.interface';
 
 @Component({
   selector: 'app-login-page',
@@ -15,7 +16,7 @@ export default class LoginPageComponent {
   password = signal('');
   showPassword = signal(false);
   submitted = signal(false);
-  errors = signal<{ email?: string; password?: string }>({});
+  errors = signal<loginForm>({});
 
   private auth = inject(GtuAuthService)
 
@@ -24,7 +25,7 @@ export default class LoginPageComponent {
   }
 
   validate() {
-    const errorObj: { email?: string; password?: string } = {};
+    const errorObj: loginForm = {};
     const emailVal = this.email().trim();
     const passwordVal = this.password().trim();
 

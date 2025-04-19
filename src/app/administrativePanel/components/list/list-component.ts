@@ -8,7 +8,7 @@ import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component"
 })
 export class ToLisComponent {
   openForm = output<void>();
-  editItem = output<void | number |void >();
+  editItem = output<Stops | Routes>();
   deleteItem = output<number>();
   buttonName = input.required<string>();
   titlePage = input.required<string>();
@@ -18,7 +18,7 @@ export class ToLisComponent {
   showModal = signal(false);
   itemChosen = signal<null | Stops | Routes>(null);
 
-  goToCreate() {
+  goToForm() {
     this.openForm.emit();
   }
 
@@ -33,12 +33,24 @@ export class ToLisComponent {
     this.itemChosen.set(null);
   }
 
+  deleteItemList() {
+    const id = this.itemChosen()?.id;
+    id != null && typeof id === 'number' && this.deleteItem.emit(id);
+
+  }
+
+  editItemList() {
+    this.goToForm();
+    this.editItem.emit(this.itemChosen()!);
+
+  }
+
   confirmModal() {
-      //this.isEdit() ? this.editItem.emit(this.itemChosen()!.id) : this.deleteItem.emit(this.itemChosen()!.id);
-      const id = this.itemChosen()?.id;
-      id != null && typeof id === 'number' && this.deleteItem.emit(id);
-      this.showModal.set(false);
-      this.itemChosen.set(null);
+    console.log('here',this.itemChosen());
+      this.isEdit() ? this.editItemList()
+      :     this.deleteItemList();
+    this.showModal.set(false);
+    this.itemChosen.set(null);
 
   }
 }

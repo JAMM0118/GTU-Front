@@ -1,4 +1,5 @@
 <app-header [title]="'Rutas'"></app-header>
-<app-show-form [form]="routeForm" [list]="service.routes()" [titleForm]="'Crear Ruta'"
+<app-show-form [form]="routeForm()" [list]="service.routes()" [titleForm]="'Crear Ruta'"
+(editIem)="service.routeSelectedToEdit($event)" [editTitle]="'Editar Ruta'" [isEditing]="isEditing()"
   [titleList]="'Lista de Rutas'" (deleteItem)="service.deleteRoute($event)" [bandera]="true" ></app-show-form>
 

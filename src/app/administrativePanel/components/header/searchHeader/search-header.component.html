@@ -24,10 +24,12 @@
     </div>
   </div>
 
-  <div *ngIf="showPanel" class="absolute z-50 top-full left-0 w-full">
-    <app-search-panel
+  @if (showPanel) {
+    <div class="absolute z-50 top-full left-0 w-full">
+      <app-search-panel
       [searchTerm]="searchTerm"
       [active]="showPanel"
       (resultSelected)="onResultSelected($event)" />
-  </div>
+    </div>
+  }
 </div>

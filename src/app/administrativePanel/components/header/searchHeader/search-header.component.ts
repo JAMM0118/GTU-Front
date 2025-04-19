@@ -1,14 +1,14 @@
-import { Component, ElementRef, HostListener, signal } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
+import { searchType } from '../../../interfaces/models.interface';
 
 @Component({
   selector: 'app-search-header',
   standalone: true,
   imports: [CommonModule, FormsModule, SearchPanelComponent],
   templateUrl: './search-header.component.html',
-  styleUrl: './search-header.component.css'
 })
 export class SearchHeaderComponent {
   searchTerm = ''; //lo que se busca
@@ -34,7 +34,7 @@ export class SearchHeaderComponent {
   }
 
   //para cuando vaya a hacer click en algun resultado(esto es para despues)
-  onResultSelected(result: any) {
+  onResultSelected(result: searchType) {
     console.log('Resultado seleccionado:', result);
     this.showPanel = false;
     this.isExpanded = false;

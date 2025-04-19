@@ -15,6 +15,7 @@
     [buttonMessage]="'Cerrar sesión'"
     [toastMessage]="'Sesión cerrada con éxito'"
     (confirm)="confirmLogout()"
+    routerLink="/login"
     (closeModal)="showLogoutModal.set(false)"
   ></app-confirm-modal>
 }

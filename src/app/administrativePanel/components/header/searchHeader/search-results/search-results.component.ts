@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component,input,output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { searchType } from '../../../../interfaces/models.interface';
 
 @Component({
   selector: 'app-search-results',
@@ -8,13 +9,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './search-results.component.html'
 })
 export class SearchResultsComponent {
-  @Input() results: { name: string; type: 'ruta' | 'parada' }[] = [];
+  results = input.required<searchType[]>();
 
-  //señal para saber que se ha hecho click en un resultado 
+  //señal para saber que se ha hecho click en un resultado
   //esto me sirve para cerrar el panel y la barra de busqueda
-  @Output() resultSelected = new EventEmitter<any>();
+  resultSelected = output<searchType>();
 
-  selectResult(result: any) {
+  selectResult(result: searchType) {
     this.resultSelected.emit(result);
   }
 

@@ -11,7 +11,8 @@
       id="email"
       type="email"
       [value]="email()"
-      (input)="email.set($any($event.target).value)"
+      (input)="email.set(txtEmail.value)"
+      #txtEmail
       placeholder="Ingrese su correo"
       class="w-full px-4 py-2 bg-[#a4d3dd] rounded-md focus:outline-none"
     />
@@ -28,7 +29,8 @@
       required
       [type]="showPassword() ? 'text' : 'password'"
       [value]="password()"
-      (input)="password.set($any($event.target).value)"
+      #txtPassword
+      (input)="password.set(txtPassword.value)"
       id="password"
       placeholder="Ingrese su contraseña"
       class="w-full px-4 py-2 bg-[#a4d3dd] rounded-md focus:outline-none pr-10"

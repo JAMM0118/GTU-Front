@@ -1,15 +1,17 @@
-import { signal } from '@angular/core';
+import { inject, signal } from '@angular/core';
 import { GtuStopsService } from '../../../../services/gtu-stops.service';
 import { GtuRoutesService } from '../../../../services/gtu-routes.service';
+import { searchType } from '../../../../interfaces/models.interface';
 
-export class SearchPanelController {
+export class SearchPanelService {
 // aqui se guardan los resultados originales(los de la bd) sin filtros ni búsquedas
-  private rawResults = signal<{ name: string; type: 'ruta' | 'parada' }[]>([]);
+  private rawResults = signal<searchType[]>([]);
   private loading = signal(false);
   private filters = signal<string[]>([]);
 
   //aqui pues creo las instancias de los servicios
-  constructor(private stopService: GtuStopsService, private routeService: GtuRoutesService) {}
+  private stopService = inject(GtuStopsService);
+  private routeService = inject(GtuRoutesService);
 
   loadData() {
     this.loading.set(true);
@@ -29,7 +31,7 @@ export class SearchPanelController {
     }, 500);
   }
 
-  clearData() { 
+  clearData() {
     this.rawResults.set([]);
   }
 

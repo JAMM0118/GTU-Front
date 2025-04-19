@@ -11,7 +11,9 @@ import type { Form, Routes, Stops } from '../../administrativePanel/interfaces/m
 export class ShowFormComponent {
   titleList = input.required<string>();
   titleForm = input.required<string>();
-  editIem = output<void>();
+  editIem = output<any>();
+  editTitle = input.required<string>();
+  isEditing = input.required<boolean>();
   deleteItem = output<number>();
   form = input.required<Form[]>();
   list = input.required<Stops[] | Routes[]>();
@@ -23,30 +25,5 @@ export class ShowFormComponent {
     this.showForm = !this.showForm;
 
   }
-
-  // deleteItem(id: string) {
-  //   this.list().splice(
-  //     this.list().findIndex((item) => item.id === id),
-  //     1
-  //   );
-  // }
-  // createItem(newList : List) {
-  //   this.list().push(newList);
-  // }
-
-  // editItem(id: string) {
-  //  console.log('Editando item con id:', id);
-  //   console.log('Lista antes de la edición:', this.list().filter((item) => {
-  //     if(item.id === id) console.log(item.name);
-
-  //     return item.id == id;}));
-
-    // const itemIndex = this.list().findIndex((item) => item.id === id);
-    // if (itemIndex !== -1) {
-    //   const item = this.list()[itemIndex];
-    //   this.list()[0].id = item.id;
-    //   this.list()[0].name = item.name;
-    // }
-
 
  }

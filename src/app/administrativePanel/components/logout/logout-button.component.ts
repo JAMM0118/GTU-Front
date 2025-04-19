@@ -1,17 +1,16 @@
 import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import {RouterLink } from '@angular/router';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-logout-button',
   standalone: true,
-  imports: [ConfirmModalComponent],
+  imports: [ConfirmModalComponent, RouterLink],
   templateUrl: './logout-button.component.html',
 })
 export class LogoutButtonComponent {
   showLogoutModal = signal(false);
 
-  constructor(private router: Router) {}
 
   openModal() {
     this.showLogoutModal.set(true);
@@ -20,6 +19,5 @@ export class LogoutButtonComponent {
   confirmLogout() {
     this.showLogoutModal.set(false);
     localStorage.clear();
-    this.router.navigate(['/login']);
   }
 }

@@ -30,7 +30,7 @@ export class GtuNeighborhoodsService {
   }
   addNeighborhood(neighborhood: Neighborhood) {
       this.neighborhoodSelected.set(neighborhood);
-      console.log('stop added:', neighborhood);
+      console.log('neighborhood added:', neighborhood);
     }
 
   addNeighborhoods(neighborhood: Neighborhood) {

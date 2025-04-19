@@ -1,3 +1,5 @@
+import { WritableSignal } from "@angular/core";
+
 export interface MenuOption {
   label: string;
   route: string;
@@ -10,7 +12,7 @@ export interface Form {
   id: string,
   type: 'text' | 'number' | 'checkbox' | 'email' | 'password' | 'checkbox' |
   'time' | 'tel' | 'date';
-  value?: string | number | boolean | '';
+  value: WritableSignal<string>;
 }
 
 export interface Neighborhood {
@@ -37,6 +39,16 @@ export interface Routes {
 
 }
 
+export interface searchType{
+  name: string;
+  type: 'ruta' | 'parada';
+}
+
+
+export interface loginForm{
+  email? : string;
+  password?: string;
+}
 
 
 

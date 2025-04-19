@@ -4,18 +4,21 @@ import { StopsResponse } from '../interfaces/reponses.interface';
 import { environment } from '../../../environments/environment';
 import { GtuMapper } from '../mapper/gtu.mapper';
 import { Stops } from '../interfaces/models.interface';
+import { GtuNeighborhoodsService } from './gtu-neighborhoods.service';
 
 @Injectable({providedIn: 'root'})
 export class GtuStopsService {
 
   private http = inject(HttpClient);
 
+  neighborhoodEdit = inject(GtuNeighborhoodsService);
+  stopToEdit = signal<Stops | null>(null);
   stopsSelected = signal<Stops[]>([]);
   stops = signal<Stops[]>([]);
 
   constructor() {
     this.loadStops();
-    console.log('Service initialized'); 
+    console.log('Service initialized');
   }
 
   loadStops() {
@@ -68,6 +71,35 @@ export class GtuStopsService {
       .subscribe((res) => {
         console.log('Stop deleted from backend:', res);
         this.stops.update((prev) => prev.filter((item) => item.id !== id));
+      });
+  }
+
+  stopSelectedToEdit(stop: Stops){
+    console.log('there',stop)
+    this.stopToEdit.set(stop);
+    this.neighborhoodEdit.addNeighborhood(this.neighborhoodEdit.neighborhoods().
+    find((neighborhood) => neighborhood.id === stop.neighborhoodId)!);
+
+    console.log('stop to edit:', this.stopToEdit())
+  }
+
+  editStop(stop: Stops) {
+    this.stopToEdit.set(stop);
+    this.http.put<StopsResponse>(environment.backEndGTU + '/stops', {
+      id: this.stopToEdit()!.id,
+      name: this.stopToEdit()!.name,
+      description: this.stopToEdit()!.description,
+      neighborhoodId: this.stopToEdit()!.neighborhoodId,
+      latitude: 40.7128,
+      longitude: -74.006,
+    })
+    .subscribe((res) => {
+        console.log('Stop edited to backend:', res);
+        if (!Array.isArray(res.data)) {
+          const mapper = GtuMapper.mapDataStopsToStops(res.data);
+          this.stops.update((prev) => prev.map((item) => item.id === mapper.id ? mapper : item));
+        }
+        console.log('All stops:', this.stops());
       });
   }
 }
