@@ -22,7 +22,10 @@ export const routes: Routes = [
         path: 'stops',
         loadComponent: () => import('./administrativePanel/pages/stops-page/stops-page.component')
       },
-
+      {
+        path: 'users',
+        loadComponent: () => import('./administrativePanel/pages/users-page/users-page.component')
+      },
       {
         path: '**',
         redirectTo: 'home'

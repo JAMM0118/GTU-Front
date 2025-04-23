@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SearchFiltersComponent } from '../search-filters/search-filters.component';
 import { SearchLoadingComponent } from '../search-loading/search-loading.component';
 import { SearchResultsComponent } from '../search-results/search-results.component';
-import { SearchPanelService } from './search-panel.service';
-import { searchType } from '../../../../interfaces/models.interface';
+import { SearchPanelController } from './search-panel.controller';
+import { SearchType } from '../../../../interfaces/models.interface';
 
 @Component({
   selector: 'app-search-panel',
@@ -15,10 +15,10 @@ import { searchType } from '../../../../interfaces/models.interface';
 export class SearchPanelComponent implements OnChanges {
   searchTerm = input<string>(''); //lo que escribo en el input de busqueda
   active = input<boolean>(false);
-  resultSelected = output<searchType>();
+  resultSelected = output<SearchType>();
 
   //creo la instancia del controlador
-  controller = new SearchPanelService();
+  controller = new SearchPanelController();
 
   //aqui manejo la carga y limpieza de datos dependiendo de si el panel está activo o no
   ngOnChanges(changes: SimpleChanges) {

@@ -10,7 +10,7 @@ export interface MenuOption {
 export interface Form {
   title: string;
   id: string,
-  type: 'text' | 'number' | 'checkbox' | 'email' | 'password' | 'checkbox' |
+  type: 'text' | 'number' | 'email' | 'password' | 'checkbox' |
   'time' | 'tel' | 'date';
   value: WritableSignal<string>;
 }
@@ -39,15 +39,25 @@ export interface Routes {
 
 }
 
-export interface searchType{
+export interface SearchType{
   name: string;
   type: 'ruta' | 'parada';
 }
 
 
-export interface loginForm{
+export interface LoginForm{
   email? : string;
   password?: string;
+}
+
+
+export interface User{
+  id?: number;
+  name: string;
+  email: string;
+  password: string;
+  role: string;
+  status: string;
 }
 
 

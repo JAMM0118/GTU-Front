@@ -1,11 +1,11 @@
 import { inject, signal } from '@angular/core';
 import { GtuStopsService } from '../../../../services/gtu-stops.service';
 import { GtuRoutesService } from '../../../../services/gtu-routes.service';
-import { searchType } from '../../../../interfaces/models.interface';
+import { SearchType } from '../../../../interfaces/models.interface';
 
-export class SearchPanelService {
+export class SearchPanelController {
 // aqui se guardan los resultados originales(los de la bd) sin filtros ni búsquedas
-  private rawResults = signal<searchType[]>([]);
+  private rawResults = signal<SearchType[]>([]);
   private loading = signal(false);
   private filters = signal<string[]>([]);
 

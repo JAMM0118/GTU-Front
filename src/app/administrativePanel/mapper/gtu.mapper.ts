@@ -1,15 +1,15 @@
-import {Neighborhood, Routes, Stops } from "../interfaces/models.interface"
-import { DataNeighborhood, DataRoutes, DataStops} from "../interfaces/reponses.interface"
+import {Neighborhood, Routes, Stops, User } from "../interfaces/models.interface"
+import { DataNeighborhood, DataRoutes, DataStops, DataUsers} from "../interfaces/reponses.interface"
 
 export class GtuMapper{
-  static mapDataNeighborhooToNeighborhood(item:  DataNeighborhood): Neighborhood{
+  static mapDataNeighborhoodToNeighborhood(item:  DataNeighborhood): Neighborhood{
     return {
         id: item.id,
         name: item.name,
       }
   }
   static mapDataNeighborhoodToNeighborhoodArray(items : DataNeighborhood[]): Neighborhood[] {
-    return items.map(this.mapDataNeighborhooToNeighborhood)
+    return items.map(this.mapDataNeighborhoodToNeighborhood)
   }
   static mapDataStopsToStops(item: DataStops): Stops{
     return {
@@ -19,9 +19,27 @@ export class GtuMapper{
         neighborhoodId: item.neighborhoodId,
     }
   }
+
   static mapDataStopsToStopsArray(items : DataStops[]): Stops[] {
     return items.map(this.mapDataStopsToStops)
   }
+
+
+  static mapDataUsersToUser(item:  DataUsers): User{
+    return {
+        id: item.id,
+        name: item.name,
+        email: item.email,
+        password: item.password,
+        role: item.role,
+        status: item.status,
+      }
+  }
+  static mapDataUsersToUserArray(items : DataUsers[]): User[] {
+    return items.map(this.mapDataUsersToUser)
+  }
+
+
   static mapDataRoutesToRoutes(item: DataRoutes): Routes{
     return {
         id: item.id,

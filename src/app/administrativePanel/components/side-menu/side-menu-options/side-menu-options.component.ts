@@ -29,5 +29,12 @@ export class SideMenuOptionsComponent {
       route: '/dashboard/stops',
       style: 'color:#FFFFFF;'
     },
+
+    {
+      icon: 'fa-solid fa-users',
+      label: 'Usuarios',
+      route: '/dashboard/users',
+      style: 'color:#FFFFFF;'
+    },
 ]
 }

@@ -11,10 +11,10 @@ import { GtuStopsService } from '../../../services/gtu-stops.service';import { S
 export class MutipleItemsSelectedListComponent {
   bandera = input.required<boolean>();
   stopsService = inject(GtuStopsService);
-  neighboorhoodService = inject(GtuNeighborhoodsService);
+  neighborhoodService = inject(GtuNeighborhoodsService);
 
   itemToRemove = (item : any) => {
-    this.bandera() ?  this.neighboorhoodService.removeNeighborhood(item)
+    this.bandera() ?  this.neighborhoodService.removeNeighborhood(item)
     :this.stopsService.removeStops(item);
 
   }
@@ -23,5 +23,11 @@ export class MutipleItemsSelectedListComponent {
       this.bandera() ?
       document.getElementById('dropdownNeighboorHood')?.classList.toggle('hidden')
       :document.getElementById('dropdownStops')?.classList.toggle('hidden');
+  }
+
+  ngOnDestroy() {
+    this.stopsService.clearStopsSelected();
+    this.neighborhoodService.clearNeighborhoodsSelected();
+
   }
  }

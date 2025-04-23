@@ -7,5 +7,10 @@ import { GtuNeighborhoodsService } from '../../../services/gtu-neighborhoods.ser
   templateUrl: './single-list-form-item-selected.component.html',
 })
 export class SingleListFormComponent {
-  service = inject(GtuNeighborhoodsService);
+  neighborhoodService = inject(GtuNeighborhoodsService);
+
+  ngOnDestroy() {
+    this.neighborhoodService.clearNeighborhoodsSelected();
+
+  }
 }

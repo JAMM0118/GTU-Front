@@ -1,11 +1,11 @@
 @if (!showForm) {
   <app-toList (openForm)="toggleForm()" [list]="list()" [buttonName]="titleForm()"
-  [titlePage]="titleList()" (deleteItem)="deleteItem.emit($event)" (editItem)="editIem.emit($event)"></app-toList>
+  [titlePage]="titleList()" (deleteItem)="deleteItem.emit($event)" (itemToEdit)="itemToEdit.emit($event)"></app-toList>
 }
 
 @if (showForm) {
   <app-forms (comeBackList)="toggleForm()" [form]="form()" [title]="titleForm()" [editTitle]="editTitle()"
-  [isEditing]="isEditing()"
-  [bandera]="bandera()"/>
+  [isEditing]="isEditing()" (createItem)="createItem.emit($event)" (editItem)="editIem.emit($event)"
+  [banderaRouteOrStop]="bandera()"/>
 
 }

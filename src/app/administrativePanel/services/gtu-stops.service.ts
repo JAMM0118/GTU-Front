@@ -11,7 +11,7 @@ export class GtuStopsService {
 
   private http = inject(HttpClient);
 
-  neighborhoodEdit = inject(GtuNeighborhoodsService);
+  neighborhoodService = inject(GtuNeighborhoodsService);
   stopToEdit = signal<Stops | null>(null);
   stopsSelected = signal<Stops[]>([]);
   stops = signal<Stops[]>([]);
@@ -21,8 +21,17 @@ export class GtuStopsService {
     console.log('Service initialized');
   }
 
+  mapRecordFormToStop(formValues: Record<string, string>): Stops {
+    return {
+      id: this.stopToEdit()!.id || undefined,
+      name: formValues['name'],
+      description: formValues['description'],
+      neighborhoodId: this.neighborhoodService.neighborhoodSelected()!.id,
+    };
+  }
+
   loadStops() {
-    this.http.get<StopsResponse>(environment.backEndGTU + '/stops')
+    this.http.get<StopsResponse>(environment.backEndGTU_RouteStop + '/stops')
       .subscribe((res) => {
         console.log('response loaded:', res);
         const mapper = GtuMapper.mapDataStopsToStopsArray(res.data);
@@ -48,8 +57,9 @@ export class GtuStopsService {
     console.log('neighborhoods selected cleared');
   }
 
-  createStop(stop: Stops) {
-    this.http.post<StopsResponse>(environment.backEndGTU + '/stops', {
+  createStop(form: Record<string, string>) {
+    const stop = this.mapRecordFormToStop(form);
+    this.http.post<StopsResponse>(environment.backEndGTU_RouteStop + '/stops', {
       name: stop.name,
       description: stop.description,
       neighborhoodId: stop.neighborhoodId,
@@ -64,10 +74,11 @@ export class GtuStopsService {
         }
         console.log('All stops:', this.stops());
       });
+
   }
 
   deleteStop(id: number) {
-    this.http.delete(environment.backEndGTU + '/stops/' + id)
+    this.http.delete(environment.backEndGTU_RouteStop + '/stops/' + id)
       .subscribe((res) => {
         console.log('Stop deleted from backend:', res);
         this.stops.update((prev) => prev.filter((item) => item.id !== id));
@@ -77,15 +88,16 @@ export class GtuStopsService {
   stopSelectedToEdit(stop: Stops){
     console.log('there',stop)
     this.stopToEdit.set(stop);
-    this.neighborhoodEdit.addNeighborhood(this.neighborhoodEdit.neighborhoods().
+    this.neighborhoodService.addNeighborhood(this.neighborhoodService.neighborhoods().
     find((neighborhood) => neighborhood.id === stop.neighborhoodId)!);
 
     console.log('stop to edit:', this.stopToEdit())
   }
 
-  editStop(stop: Stops) {
+  editStop(form: Record<string, string>) {
+    const stop = this.mapRecordFormToStop(form);
     this.stopToEdit.set(stop);
-    this.http.put<StopsResponse>(environment.backEndGTU + '/stops', {
+    this.http.put<StopsResponse>(environment.backEndGTU_RouteStop + '/stops', {
       id: this.stopToEdit()!.id,
       name: this.stopToEdit()!.name,
       description: this.stopToEdit()!.description,
@@ -101,5 +113,6 @@ export class GtuStopsService {
         }
         console.log('All stops:', this.stops());
       });
+
   }
 }

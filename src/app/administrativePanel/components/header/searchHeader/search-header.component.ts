@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
-import { searchType } from '../../../interfaces/models.interface';
+import { SearchType } from '../../../interfaces/models.interface';
 
 @Component({
   selector: 'app-search-header',
@@ -34,7 +34,7 @@ export class SearchHeaderComponent {
   }
 
   //para cuando vaya a hacer click en algun resultado(esto es para despues)
-  onResultSelected(result: searchType) {
+  onResultSelected(result: SearchType) {
     console.log('Resultado seleccionado:', result);
     this.showPanel = false;
     this.isExpanded = false;

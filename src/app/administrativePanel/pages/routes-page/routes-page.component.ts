@@ -16,8 +16,7 @@ export default class RoutesPageComponent {
   isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
 
-  routeForm =
-    computed<Form[]>(() => {
+  routeForm = computed<Form[]>(() => {
       console.log(this.isEditing());
       const route = this.valueEditItem();
       return[

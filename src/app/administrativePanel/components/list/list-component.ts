@@ -1,28 +1,37 @@
 import { Component,input, output, signal } from "@angular/core";
-import { Routes, Stops } from "../../interfaces/models.interface";
+import { Routes, Stops, User } from "../../interfaces/models.interface";
 import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
+import { CommonModule } from "@angular/common";
+
+
 @Component({
   selector: 'app-toList',
   templateUrl: './list-component.html',
-  imports: [ConfirmModalComponent],
+  imports: [ConfirmModalComponent,CommonModule],
 })
 export class ToLisComponent {
+[x: string]: any;
+  reportsOpen = false;
   openForm = output<void>();
-  editItem = output<Stops | Routes>();
+  itemToEdit = output<Stops | Routes | User>();
   deleteItem = output<number>();
   buttonName = input.required<string>();
   titlePage = input.required<string>();
-  list = input.required< Routes[] | Stops[]>();
+  list = input.required< Routes[] | Stops[] | User[]>();
 
   isEdit = signal(false);
   showModal = signal(false);
-  itemChosen = signal<null | Stops | Routes>(null);
+  itemChosen = signal<null | Stops | Routes | User>(null);
 
   goToForm() {
     this.openForm.emit();
   }
 
-  openModal(item: Stops | Routes) {
+  objectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
+
+  openModal(item: Stops | Routes | User) {
     this.itemChosen.set(item);
     this.showModal.set(true);
   }
@@ -41,7 +50,7 @@ export class ToLisComponent {
 
   editItemList() {
     this.goToForm();
-    this.editItem.emit(this.itemChosen()!);
+    this.itemToEdit.emit(this.itemChosen()!);
 
   }
 

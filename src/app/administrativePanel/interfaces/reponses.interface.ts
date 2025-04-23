@@ -39,3 +39,20 @@ export interface DataRoutes {
   neighborhoodIds: number[];
   stops:           number[];
 }
+
+
+export interface UsersResponse {
+  message: string;
+  data:    DataUsers[];
+  status:  number;
+}
+
+export interface DataUsers {
+  id:       number;
+  name:     string;
+  email:    string;
+  password: string;
+  role:     string;
+  status:   string;
+}
+

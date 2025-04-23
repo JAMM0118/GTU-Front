@@ -24,11 +24,11 @@
       }
     </div>
   </form>
-  @if(bandera()){
+  @if(banderaRouteOrStop() =='route'){
     <app-multiple-items-list [bandera]="false"/>
     <app-multiple-items-list [bandera]="true"/>
   }
-  @if(!bandera()){
+  @if(banderaRouteOrStop() =='stop'){
     <app-single-list-form/>
   }
 </div>

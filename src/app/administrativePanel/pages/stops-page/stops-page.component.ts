@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import type { Form, Stops } from '../../interfaces/models.interface';
+import type { Form } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuStopsService } from '../../services/gtu-stops.service';
