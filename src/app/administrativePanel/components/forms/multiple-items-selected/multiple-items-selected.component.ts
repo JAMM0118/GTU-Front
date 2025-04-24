@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input} from '@angular/core';
 import { GtuNeighborhoodsService } from '../../../services/gtu-neighborhoods.service';
 import { GtuStopsService } from '../../../services/gtu-stops.service';import { Stops } from '../../../interfaces/models.interface';
 ;
@@ -9,7 +9,25 @@ import { GtuStopsService } from '../../../services/gtu-stops.service';import { S
   templateUrl: './multiple-items-selected.component.html',
 })
 export class MutipleItemsSelectedListComponent {
-  gtuNeighborhoodService = inject(GtuNeighborhoodsService);
+  bandera = input.required<boolean>();
+  stopsService = inject(GtuStopsService);
+  neighborhoodService = inject(GtuNeighborhoodsService);
 
+  itemToRemove = (item : any) => {
+    this.bandera() ?  this.neighborhoodService.removeNeighborhood(item)
+    :this.stopsService.removeStops(item);
 
+  }
+
+  toggleDropdown() {
+      this.bandera() ?
+      document.getElementById('dropdownNeighboorHood')?.classList.toggle('hidden')
+      :document.getElementById('dropdownStops')?.classList.toggle('hidden');
+  }
+
+  ngOnDestroy() {
+    this.stopsService.clearStopsSelected();
+    this.neighborhoodService.clearNeighborhoodsSelected();
+
+  }
  }

@@ -1,5 +1,5 @@
-import { Component, signal, inject } from '@angular/core';
-import type { Form, List } from '../../interfaces/models.interface';
+import { Component, computed, inject, signal } from '@angular/core';
+import type { Form } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuStopsService } from '../../services/gtu-stops.service';
@@ -13,23 +13,28 @@ export default class StopsPageComponent {
 
   service = inject(GtuStopsService);
 
-  stopsForm: Form[] = [
+  valueEditItem = computed(() => this.service.stopToEdit());
+  isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
-    {
-      title: 'Nombre de la parada',
-      type: 'text',
-      id: 'name'
+  stopsForm = computed<Form[]>(() => {
+    console.log(this.isEditing());
+    const stop = this.valueEditItem();
 
-    },
-    {
-      title: 'Descripción',
-      type: 'text',
-      id: 'description'
-
-    },
-  ]
-
-
+    return [
+      {
+        title: 'Nombre de la parada',
+        type: 'text',
+        id: 'name',
+        value: signal(stop ? stop.name : ''),
+      },
+      {
+        title: 'Descripción',
+        type: 'text',
+        id: 'description',
+        value: signal(stop ? stop.description : ''),
+      }
+    ];
+  });
 
 
 }

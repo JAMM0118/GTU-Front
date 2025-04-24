@@ -1,7 +1,8 @@
-import {Component, signal } from '@angular/core';
-import type { Form, List } from '../../interfaces/models.interface';
+import {Component, computed, inject, signal } from '@angular/core';
+import type { Form } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
+import { GtuRoutesService } from '../../services/gtu-routes.service';
 
 @Component({
   selector: 'app-routes-page',
@@ -10,54 +11,43 @@ import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 })
 export default class RoutesPageComponent {
 
-  routeList: List[] = [
-    {
-      id: '1',
-      name: 'B2010',
-      description: 'Ruta 1',
-      startTime: '08:00',
-      endTime: '10:00',
-      neighborhood: 'Barrio 1',
-      stops: ['Parada 1, Parada 2'],
-    },
-    {
-      id: '2',
-      name: 'B2015',
-      description: 'Ruta 2',
-      startTime: '09:00',
-      endTime: '11:00',
-      neighborhood: 'Barrio 2',
-      stops: ['Parada 3, Parada 4'],
+  service = inject(GtuRoutesService);
+  valueEditItem = computed(() => this.service.routeToEdit());
+  isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
-    }
-  ]
 
-  routeForm: Form[] = [
+  routeForm = computed<Form[]>(() => {
+      console.log(this.isEditing());
+      const route = this.valueEditItem();
+      return[
 
     {
      title: 'Nombre de la ruta',
      type: 'text',
      id: 'name',
+     value: signal(route ? route.name : ''),
 
     },
     {
      title: 'Descripcion',
      type: 'text',
      id: 'description',
-
+           value: signal(route ? route.description : ''),
     },
     {
      title: 'Horario de inicio',
      type: 'time',
-     id: 'startTime'
+     id: 'startTime' ,
+     value: signal(route ? route.startTime : ''),
     },
     {
       title: 'Horario de Finalización',
       type: 'time',
-      id: 'endTime'
+      id: 'endTime',
+      value: signal(route ? route.endTime : ''),
      },
 
-   ];
+   ]});
 
 
 

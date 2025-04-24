@@ -1,0 +1,21 @@
+<a
+   (click)="openModal()"
+   class="w-full px-2 inline-flex space-x-2 items-center py-3 hover:bg-white/5 transition ease-linear duration-150">
+  <i class="fa-solid fa-close" style="color: white;"></i>
+  <span class="text-lg font-bold leading-5 text-white">Cerrar sesión</span>
+</a>
+
+<!-- Modal -->
+@if (showLogoutModal()) {
+  <app-confirm-modal
+    [itemName]="'sesión'"
+    [title]="'Confirmar cierre'"
+    [message]="'¿Estás seguro de que deseas cerrar'"
+    [colorButton]="'red'"
+    [buttonMessage]="'Cerrar sesión'"
+    [toastMessage]="'Sesión cerrada con éxito'"
+    (confirm)="confirmLogout()"
+    routerLink="/login"
+    (closeModal)="showLogoutModal.set(false)"
+  ></app-confirm-modal>
+}

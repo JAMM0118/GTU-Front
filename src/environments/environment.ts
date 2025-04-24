@@ -6,6 +6,6 @@ export const environment = {
   //Api keys
 
   //URLS
-  backEndGTU : 'http://167.99.145.76/api/route-management',
-
+  backEndGTU_RouteStop : '/api/route-management',
+  backEndGTU_Users : '/api/user-management',
 }

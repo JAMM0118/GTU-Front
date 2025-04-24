@@ -62,7 +62,8 @@
               "buildTarget": "GTU-Front:build:production"
             },
             "development": {
-              "buildTarget": "GTU-Front:build:development"
+              "buildTarget": "GTU-Front:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
