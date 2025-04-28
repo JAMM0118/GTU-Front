@@ -3,14 +3,17 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuUsersService } from '../../services/gtu-users.service';
 import { Form } from '../../interfaces/models.interface';
+import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
   selector: 'app-users-page',
-  imports: [HeaderComponent, ShowFormComponent],
+  imports: [HeaderComponent, ShowFormComponent, FiltersComponent],
   templateUrl: './users-page.component.html',
 })
 export default class UsersPageComponent {
   service = inject(GtuUsersService);
+
+  filters = ['ADMIN', 'DRIVEN'];
 
   isEditing = computed(()=>{return this.service.userToEdit() ? true : false });
 
@@ -50,7 +53,5 @@ export default class UsersPageComponent {
       },
     ];
   });
-
-
 
  }
