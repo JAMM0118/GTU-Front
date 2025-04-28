@@ -7,13 +7,13 @@ import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
   selector: 'app-users-page',
-  imports: [HeaderComponent, ShowFormComponent, FiltersComponent],
+  imports: [HeaderComponent, ShowFormComponent],
   templateUrl: './users-page.component.html',
 })
 export default class UsersPageComponent {
   service = inject(GtuUsersService);
 
-  filters = ['ADMIN', 'DRIVEN'];
+  //filters = ['ADMIN', 'DRIVER', 'MODERATOR'];
 
   isEditing = computed(()=>{return this.service.userToEdit() ? true : false });
 
@@ -52,6 +52,6 @@ export default class UsersPageComponent {
         value: signal(''),
       },
     ];
-  });
+  }); 
 
  }
