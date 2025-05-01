@@ -13,6 +13,8 @@ export interface Form {
   type: 'text' | 'number' | 'email' | 'password' | 'checkbox' |
   'time' | 'tel' | 'date';
   value: WritableSignal<string>;
+  validation?: (value: string) => string | null;
+  error?: WritableSignal<string | null>;
 }
 
 export interface Neighborhood {

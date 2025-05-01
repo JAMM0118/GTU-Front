@@ -31,7 +31,8 @@ export class GtuStopsService {
   }
 
   loadStops() {
-    this.http.get<StopsResponse>(environment.backEndGTU_RouteStop + '/stops')
+    this.http.get<StopsResponse>(environment.backEndGTU_RouteStop + '/stops'
+    )
       .subscribe((res) => {
         console.log('response loaded:', res);
         const mapper = GtuMapper.mapDataStopsToStopsArray(res.data);

@@ -12,7 +12,6 @@ import { GtuStopsService } from '../../services/gtu-stops.service';
 export default class StopsPageComponent {
 
   service = inject(GtuStopsService);
-
   valueEditItem = computed(() => this.service.stopToEdit());
   isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
@@ -26,12 +25,17 @@ export default class StopsPageComponent {
         type: 'text',
         id: 'name',
         value: signal(stop ? stop.name : ''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'El nombre de la parada es obligatorio' : null
+
       },
       {
         title: 'Descripción',
         type: 'text',
         id: 'description',
         value: signal(stop ? stop.description : ''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'La descripción es obligatoria' : null
       }
     ];
   });

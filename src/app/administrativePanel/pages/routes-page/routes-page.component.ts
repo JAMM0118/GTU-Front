@@ -26,25 +26,32 @@ export default class RoutesPageComponent {
      type: 'text',
      id: 'name',
      value: signal(route ? route.name : ''),
-
+     error: signal(null),
+      validation: (val: string) => val.trim() === '' ? 'El nombre de la ruta es obligatorio' : null
     },
     {
      title: 'Descripcion',
      type: 'text',
      id: 'description',
-           value: signal(route ? route.description : ''),
+      value: signal(route ? route.description : ''),
+      error: signal(null),
+      validation: (val: string) => val.trim() === '' ? 'La descripción es obligatoria' : null
     },
     {
      title: 'Horario de inicio',
      type: 'time',
      id: 'startTime' ,
      value: signal(route ? route.startTime : ''),
+      error: signal(null),
+      validation: (val: string) => val.trim() === '' ? 'El horario de inicio es obligatorio' : null
     },
     {
       title: 'Horario de Finalización',
       type: 'time',
       id: 'endTime',
       value: signal(route ? route.endTime : ''),
+      error: signal(null),
+      validation: (val: string) => val.trim() === '' ? 'El horario de finalización es obligatorio' : null
      },
 
    ]});
