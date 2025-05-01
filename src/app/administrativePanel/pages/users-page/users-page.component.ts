@@ -3,6 +3,7 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuUsersService } from '../../services/gtu-users.service';
 import { Form } from '../../interfaces/models.interface';
+import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
   selector: 'app-users-page',
@@ -11,6 +12,8 @@ import { Form } from '../../interfaces/models.interface';
 })
 export default class UsersPageComponent {
   service = inject(GtuUsersService);
+
+  //filters = ['ADMIN', 'DRIVER', 'MODERATOR'];
 
   isEditing = computed(()=>{return this.service.userToEdit() ? true : false });
 
@@ -54,8 +57,6 @@ export default class UsersPageComponent {
         validation: (val: string) => val.trim() === '' ? 'El rol del usuario es obligatorio' : null
       }
     ];
-  });
-
-
+  }); 
 
  }

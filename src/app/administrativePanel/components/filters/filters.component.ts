@@ -2,21 +2,22 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-search-filters',
+  selector: 'app-filters',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './search-filters.component.html'
+  templateUrl: './filters.component.html'
 })
-export class SearchFiltersComponent {
+export class FiltersComponent {
   selectedFilters = input<string[]>([]);
-  filterChange = output<string[]>(); // Correcto: Emite un array de strings
+  filterChange = output<string[]>(); 
 
-  availableFilters: string[] = ['ruta', 'parada'];
+  availableFilters = input<string[]>([]);
 
   isSelected(filter: string): boolean {
     return this.selectedFilters().includes(filter);
   }
 
+  //Filtros seleccionados 
   toggleFilter(filter: string): void {
     const index = this.selectedFilters().indexOf(filter);
     if (index >= 0) {
@@ -24,6 +25,6 @@ export class SearchFiltersComponent {
     } else {
       this.selectedFilters().push(filter);
     }
-    this.filterChange.emit([...this.selectedFilters()]); // Emitir el array actualizado
+    this.filterChange.emit([...this.selectedFilters()]); 
   }
 }
