@@ -1,31 +1,33 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { LoginResponse } from '../interfaces/reponses.interface';
+import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GtuAuthService {
-  login(email: string, password: string) : {accessToken: string; refreshToken: string} {
-    const accessToken = 'simulado_access_token';
-    const refreshToken = 'simulado_refresh_token';
+  private router = inject(Router);
+  private http = inject(HttpClient);
 
-    console.log('🔐 Simulando login con:', email, password);
+  login(email: string, password: string)  {
+    this.http.post<LoginResponse>(environment.backEndGTU_Login, {
+        email: email,
+        password: password
+    }) .subscribe((res) => {
+      console.log('✅ Login correcto:', res);
+      const accessToken = res.accessToken;
+      const userRole = res.role
+      const userName = res.name;
+      localStorage.setItem('userName', userName);
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('userRole',userRole);
+      console.log('✅ Token guardados en localStorage');
+      console.log('📦 Roles y permisos:', userRole);
+      this.router.navigate(['/dashboard']);
 
-    return {
-      accessToken,
-      refreshToken,
-    };
-  }
-
-  getUserRoles() {
-    return {
-      name: 'Margarita',
-      roles: [
-        {
-          name: 'admin',
-          modules: ['Usuarios', 'Reportes', 'Dashboard']
-        }
-      ]
-    };
+    });
   }
 
   isLoggedIn(): boolean {
@@ -34,5 +36,6 @@ export class GtuAuthService {
 
   logout() {
     localStorage.clear();
+    console.log(localStorage.getItem('accessToken'));
   }
 }

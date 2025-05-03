@@ -6,7 +6,7 @@ import { GtuMapper } from '../mapper/gtu.mapper';
 import { Stops } from '../interfaces/models.interface';
 import { GtuNeighborhoodsService } from './gtu-neighborhoods.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class GtuStopsService {
 
   private http = inject(HttpClient);
@@ -31,7 +31,12 @@ export class GtuStopsService {
   }
 
   loadStops() {
-    this.http.get<StopsResponse>(environment.backEndGTU_RouteStop + '/stops'
+    this.http.get<StopsResponse>(environment.backEndGTU_RouteStop + '/stops',
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+      }
     )
       .subscribe((res) => {
         console.log('response loaded:', res);
@@ -66,8 +71,12 @@ export class GtuStopsService {
       neighborhoodId: stop.neighborhoodId,
       latitude: 40.7128,
       longitude: -74.006,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
     })
-    .subscribe((res) => {
+      .subscribe((res) => {
         console.log('Stop added to backend:', res);
         if (!Array.isArray(res.data)) {
           const mapper = GtuMapper.mapDataStopsToStops(res.data);
@@ -79,18 +88,24 @@ export class GtuStopsService {
   }
 
   deleteStop(id: number) {
-    this.http.delete(environment.backEndGTU_RouteStop + '/stops/' + id)
+    this.http.delete(environment.backEndGTU_RouteStop + '/stops/' + id,
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+      }
+    )
       .subscribe((res) => {
         console.log('Stop deleted from backend:', res);
         this.stops.update((prev) => prev.filter((item) => item.id !== id));
       });
   }
 
-  stopSelectedToEdit(stop: Stops){
-    console.log('there',stop)
+  stopSelectedToEdit(stop: Stops) {
+    console.log('there', stop)
     this.stopToEdit.set(stop);
     this.neighborhoodService.addNeighborhood(this.neighborhoodService.neighborhoods().
-    find((neighborhood) => neighborhood.id === stop.neighborhoodId)!);
+      find((neighborhood) => neighborhood.id === stop.neighborhoodId)!);
 
     console.log('stop to edit:', this.stopToEdit())
   }
@@ -105,8 +120,12 @@ export class GtuStopsService {
       neighborhoodId: this.stopToEdit()!.neighborhoodId,
       latitude: 40.7128,
       longitude: -74.006,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
     })
-    .subscribe((res) => {
+      .subscribe((res) => {
         console.log('Stop edited to backend:', res);
         if (!Array.isArray(res.data)) {
           const mapper = GtuMapper.mapDataStopsToStops(res.data);

@@ -30,24 +30,14 @@ export default class UsersPageComponent {
         validation: (val: string) => val.trim() === '' ? 'El nombre del usuario es obligatorio' : null
       },
       {
-        title: 'Correo del usuario',
-        type: 'email',
-        id: 'email',
+        title: 'Apellido del usuario',
+        type: 'text',
+        id: 'lastname',
         value: signal(''),
         error: signal(null),
-        validation: (val: string) => {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          return !emailRegex.test(val) ? 'El correo electrónico no es válido' : null;
-        }
+        validation: (val: string) => val.trim() === '' ? 'El apellido del usuario es obligatorio' : null
       },
-      {
-        title: 'Contraseña del usuario',
-        type: 'password',
-        id: 'password',
-        value: signal(''),
-        error: signal(null),
-        validation: (val: string) => val.trim() === '' ? 'La contraseña es obligatoria' : null
-      },
+
       {
         title: 'Rol del usuario',
         type: 'text',
@@ -57,6 +47,6 @@ export default class UsersPageComponent {
         validation: (val: string) => val.trim() === '' ? 'El rol del usuario es obligatorio' : null
       }
     ];
-  }); 
+  });
 
  }

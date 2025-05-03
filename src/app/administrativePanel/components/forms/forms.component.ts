@@ -72,8 +72,8 @@ export class FormsComponent {
     }, 0);
     console.log('Formulario a enviar:', formValues);
 
-    // this.isEditing() ? this.editItem.emit(formValues) :
-    // this.createItem.emit(formValues);
+    this.isEditing() ? this.editItem.emit(formValues) :
+    this.createItem.emit(formValues);
 
     this.inputs().forEach((input) => {
       const inputElement = input.nativeElement;

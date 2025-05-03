@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {RouterLink } from '@angular/router';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { GtuAuthService } from '../../services/gtu-auth.service';
 
 @Component({
   selector: 'app-logout-button',
@@ -10,6 +11,7 @@ import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component'
 })
 export class LogoutButtonComponent {
   showLogoutModal = signal(false);
+  authService = inject(GtuAuthService);
 
 
   openModal() {
@@ -18,6 +20,6 @@ export class LogoutButtonComponent {
 
   confirmLogout() {
     this.showLogoutModal.set(false);
-    localStorage.clear();
+    this.authService.logout();
   }
 }

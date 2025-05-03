@@ -10,4 +10,5 @@ import { ProfileHeaderComponent } from './profileHeader/profile-header.component
 })
 export class HeaderComponent {
   title = input<string>('GTU Project');
+  userName = localStorage.getItem('userName');
 }

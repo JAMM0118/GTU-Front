@@ -35,7 +35,11 @@ export class GtuRoutesService {
     };
   }
   loadRoutes() {
-    this.http.get<RoutesResponse>(environment.backEndGTU_RouteStop + '/routes')
+    this.http.get<RoutesResponse>(environment.backEndGTU_RouteStop + '/routes', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+      }
+    })
       .subscribe((res) => {
         console.log('response loaded:', res);
         const mapper = GtuMapper.mapDataRoutesToRoutesArray(res.data);
@@ -43,7 +47,6 @@ export class GtuRoutesService {
         this.routes.set(mapper);
       })
   }
-
 
   createRoute(form: Record<string, string>) {
     const route = this.mapRecordFormToRoute(form);
@@ -54,6 +57,10 @@ export class GtuRoutesService {
       stops: route.stops,
       startTime: route.startTime,
       endTime: route.endTime,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
     })
       .subscribe((res) => {
         console.log('Route added to backend:', res);
@@ -63,11 +70,16 @@ export class GtuRoutesService {
         }
         console.log('All routes:', this.routes());
       });
-
   }
 
   deleteRoute(id: number) {
-    this.http.delete(environment.backEndGTU_RouteStop + '/routes/' + id)
+    this.http.delete(environment.backEndGTU_RouteStop + '/routes/' + id,
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+      }
+    )
       .subscribe((res) => {
         console.log('Route deleted from backend:', res);
         this.routes.update((prev) => prev.filter((item) => item.id !== id));
@@ -103,14 +115,19 @@ export class GtuRoutesService {
       stops: this.routeToEdit()!.stops,
       startTime: this.routeToEdit()!.startTime,
       endTime: this.routeToEdit()!.endTime,
-    }).subscribe((res) => {
-      console.log('Route edited in backend:', res);
-      if (!Array.isArray(res.data)) {
-        const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
-        this.routes.update((prev) => prev.map((item) => item.id === mapper.id ? mapper : item));
-      }
-      console.log('All routes:', this.routes());
+    },
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+      }).subscribe((res) => {
+        console.log('Route edited in backend:', res);
+        if (!Array.isArray(res.data)) {
+          const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
+          this.routes.update((prev) => prev.map((item) => item.id === mapper.id ? mapper : item));
+        }
+        console.log('All routes:', this.routes());
 
-    })
+      })
   }
 }

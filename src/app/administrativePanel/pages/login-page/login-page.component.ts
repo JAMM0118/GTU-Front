@@ -3,17 +3,21 @@ import { GtuAuthService } from '../../services/gtu-auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginForm } from '../../interfaces/models.interface';
+import { RouterLink } from '@angular/router';
+import { routes } from '../../../app.routes';
+import { LoadingModalComponent } from "../../components/loadingModal/loadingModal.component";
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
   templateUrl: './login-page.component.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoadingModalComponent],
 })
 
 export default class LoginPageComponent {
   email = signal('');
   password = signal('');
+  isLoading = signal(false);
   showPassword = signal(false);
   submitted = signal(false);
   errors = signal<LoginForm>({});
@@ -43,23 +47,17 @@ export default class LoginPageComponent {
     return Object.keys(errorObj).length === 0;
   }
 
-  onSubmit(event?: Event) {
-    event?.preventDefault();
+  onSubmit() {
     this.submitted.set(true);
     if (this.validate()) {
       console.log('✅ Login correcto:', {
         email: this.email(),
         password: this.password(),
-      });
-      console.log('✅ Login correcto:', { email: this.email, password: this.password });
-      const response = this.auth.login(this.email(), this.password());
+      }
+    );
+    this.isLoading.set(true);
+    this.auth.login(this.email(), this.password());
 
-      localStorage.setItem('accessToken', response.accessToken);
-      localStorage.setItem('refreshToken', response.refreshToken);
-      console.log('✅ Tokens guardados en localStorage');
-
-      const roles = this.auth.getUserRoles();
-      console.log('📦 Roles y permisos:', roles);
     }
   }
 }

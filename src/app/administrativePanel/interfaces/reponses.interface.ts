@@ -56,3 +56,10 @@ export interface DataUsers {
   status:   string;
 }
 
+export interface LoginResponse {
+  accessToken: string;
+  userId:      number;
+  name:        string;
+  email:       string;
+  role:        string;
+}

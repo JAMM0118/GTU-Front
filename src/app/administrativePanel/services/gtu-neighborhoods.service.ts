@@ -20,7 +20,11 @@ export class GtuNeighborhoodsService {
    }
 
   loadNeighboorhoods() {
-    this.http.get<NeighborhoodResponse>(environment.backEndGTU_RouteStop + '/neighborhoods')
+    this.http.get<NeighborhoodResponse>(environment.backEndGTU_RouteStop + '/neighborhoods',{
+      headers:{
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+    })
     .subscribe((res) => {
       console.log('response loaded:', res);
       const mapper = GtuMapper.mapDataNeighborhoodToNeighborhoodArray(res.data);
