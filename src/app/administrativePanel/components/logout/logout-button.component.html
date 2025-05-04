@@ -8,14 +8,13 @@
 <!-- Modal -->
 @if (showLogoutModal()) {
   <app-confirm-modal
-    [itemName]="'sesión'"
+    [itemName]="userName!"
     [title]="'Confirmar cierre'"
-    [message]="'¿Estás seguro de que deseas cerrar'"
+    [message]="'¿Estás seguro de cerrar sesion'"
     [colorButton]="'red'"
     [buttonMessage]="'Cerrar sesión'"
     [toastMessage]="'Sesión cerrada con éxito'"
     (confirm)="confirmLogout()"
-    routerLink="/login"
     (closeModal)="showLogoutModal.set(false)"
   ></app-confirm-modal>
 }

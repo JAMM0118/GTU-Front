@@ -6,12 +6,13 @@ import { LoginForm } from '../../interfaces/models.interface';
 import { RouterLink } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { LoadingModalComponent } from "../../components/loadingModal/loadingModal.component";
+import { ResponseBackendModalComponent } from "../../../shared/response-backend-modal/response-backend-modal.component";
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
   templateUrl: './login-page.component.html',
-  imports: [CommonModule, FormsModule, LoadingModalComponent],
+  imports: [CommonModule, FormsModule, LoadingModalComponent, ResponseBackendModalComponent],
 })
 
 export default class LoginPageComponent {
@@ -20,6 +21,8 @@ export default class LoginPageComponent {
   isLoading = signal(false);
   showPassword = signal(false);
   submitted = signal(false);
+  errorResponse = signal(false);
+  errorResponseMessage = signal('');
   errors = signal<LoginForm>({});
 
   private auth = inject(GtuAuthService)
@@ -54,10 +57,20 @@ export default class LoginPageComponent {
         email: this.email(),
         password: this.password(),
       }
-    );
-    this.isLoading.set(true);
-    this.auth.login(this.email(), this.password());
+      );
+      this.isLoading.set(true);
 
+      this.auth.login(this.email(), this.password());
+
+      setTimeout(() => {
+        if (this.auth.responseStatus() !== 200) {
+          this.isLoading.set(false);
+          this.submitted.set(false);
+          this.errorResponse.set(true);
+          this.errorResponseMessage.set(this.auth.responseMessage());
+        }
+      }, 2000);
     }
+
   }
 }

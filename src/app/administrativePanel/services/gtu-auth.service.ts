@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { LoginResponse } from '../interfaces/reponses.interface';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
@@ -10,32 +10,32 @@ import { Router } from '@angular/router';
 export class GtuAuthService {
   private router = inject(Router);
   private http = inject(HttpClient);
+  responseStatus = signal(200);
+  responseMessage = signal('');
 
-  login(email: string, password: string)  {
+  login(email: string, password: string)   {
     this.http.post<LoginResponse>(environment.backEndGTU_Login, {
         email: email,
         password: password
-    }) .subscribe((res) => {
+    },
+    { observe: 'response' }) .subscribe({
+      next: (response) => {
+      const res = response.body!;
       console.log('✅ Login correcto:', res);
-      const accessToken = res.accessToken;
-      const userRole = res.role
-      const userName = res.name;
-      localStorage.setItem('userName', userName);
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('userRole',userRole);
-      console.log('✅ Token guardados en localStorage');
-      console.log('📦 Roles y permisos:', userRole);
+      localStorage.setItem('userName', res.name);
+      localStorage.setItem('accessToken', res.accessToken);
+      localStorage.setItem('userRole',res.role);
       this.router.navigate(['/dashboard']);
-
-    });
+      },
+      error: (error) => {
+        this.responseStatus.set(error.status);
+        console.log('❌ Login incorrecto:', error.status);
+        console.log('❌ Login incorrecto:', error.error.message);
+        this.responseMessage.set(error.error.message);
+      }
+    })
   }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('accessToken');
-  }
-
   logout() {
     localStorage.clear();
-    console.log(localStorage.getItem('accessToken'));
   }
 }

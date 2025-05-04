@@ -42,9 +42,14 @@
         <a href="#" class="text-black underline text-sm">Recuperar contraseña</a>
       </div>
     </form>
-     @if (isLoading()) {
+    @if (isLoading()) {
 
-       <app-loading-modal />
-     }
-  </div>
+      <app-loading-modal />
+    }
+    @if(errorResponse()){
+
+      <app-response-backend-modal [message]="errorResponseMessage()" title="Error"
+      (close)="errorResponse.set(false)"/>
+    }
+    </div>
 </div>
