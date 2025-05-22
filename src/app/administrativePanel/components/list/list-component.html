@@ -7,7 +7,11 @@
     </button>
   </div>
   <div class="space-y-2">
-    @for (item of list(); track item) {
+
+    @if (filter()) {<app-filters [availableFilters]="['DRIVER','ADMIN']" [selectedFilters]="selectedFilters()"
+        (filterChange)="onFilterChange($event)">></app-filters> }
+
+    @for (item of filteredList(); track item) {
     <div class="group" [tabindex]="item.id">
 
       <div class="flex items-center justify-between bg-blue-100 p-3 rounded-md">

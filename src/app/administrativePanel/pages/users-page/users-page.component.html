@@ -1,7 +1,6 @@
 <app-header [title]="'Usuarios'"/>
-<!-- <app-filters [availableFilters]="filters" /> -->
 <app-show-form [form]="usersForm()" [list]="service.users()" [titleForm]="'Crear Usuario'" [titleList]="'Lista de Usuarios'"
 [editTitle]="'Editar Usuario'" [isEditing]="isEditing()" (deleteItem)="service.deleteUser($event)"
 (createItem)="service.createUser($event)" (editIem)="service.editUser($event)" (itemToEdit)="service.userSelectedToEdit($event)"
-(clearItemToEdit)="service.userToEdit.set(null)"
+(clearItemToEdit)="service.userToEdit.set(null)" [showFilter]="true"
 />

@@ -2,12 +2,13 @@ import { Component,input, output, signal } from "@angular/core";
 import { Routes, Stops, User } from "../../interfaces/models.interface";
 import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
 import { CommonModule } from "@angular/common";
+import { FiltersComponent } from "../filters/filters.component";
 
 
 @Component({
   selector: 'app-toList',
   templateUrl: './list-component.html',
-  imports: [ConfirmModalComponent,CommonModule],
+  imports: [ConfirmModalComponent,CommonModule, FiltersComponent],
 })
 export class ToLisComponent {
 [x: string]: any;
@@ -22,6 +23,22 @@ export class ToLisComponent {
   isEdit = signal(false);
   showModal = signal(false);
   itemChosen = signal<null | Stops | Routes | User>(null);
+
+  filter = input<boolean>(false);
+  selectedFilters = signal<string[]>([]);
+
+  filteredList() {
+    // Si no hay filtros muestra toda la lista
+    if (this.selectedFilters().length === 0) return this.list();
+    //Filtra por rol
+    return this.list().filter((item: any) =>
+      this.selectedFilters().includes(item.role)
+    );
+  }
+
+  onFilterChange(filters: string[]) {
+    this.selectedFilters.set(filters);
+  }
 
   goToForm() {
     this.openForm.emit();
