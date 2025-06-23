@@ -36,5 +36,11 @@ export class SideMenuOptionsComponent {
       route: '/dashboard/users',
       style: 'color:#FFFFFF;'
     },
+    {
+      icon: 'fa-solid fa-route',
+      label: 'Asignar Conductor',
+      route: '/dashboard/assign-driver',
+      style: 'color:#FFFFFF;'
+    },
 ]
 }

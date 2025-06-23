@@ -6,22 +6,23 @@ import { environment } from '../../../environments/environment';
 import { GtuMapper } from '../mapper/gtu.mapper';
 import { GtuNeighborhoodsService } from './gtu-neighborhoods.service';
 import { GtuStopsService } from './gtu-stops.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class GtuRoutesService {
 
   private http = inject(HttpClient);
-
+  private router = inject(Router);
   routes = signal<Routes[]>([]);
   neighborhoodsService = inject(GtuNeighborhoodsService);
   stopsService = inject(GtuStopsService);
   routeToEdit = signal<Routes | null>(null);
-
+  routeSelected = signal<Routes | null>(null);
 
   constructor() {
     this.loadRoutes();
-    console.log('Service initialized');
   }
+
   mapRecordFormToRoute(formValues: Record<string, string>): Routes {
     return {
       id: this.routeToEdit()!.id || undefined,
@@ -31,17 +32,35 @@ export class GtuRoutesService {
       stops: this.stopsService.stopsSelected().map((stop) => stop.id!),
       startTime: formValues['startTime'],
       endTime: formValues['endTime'],
-
     };
   }
   loadRoutes() {
-    this.http.get<RoutesResponse>(environment.backEndGTU_RouteStop + '/routes')
-      .subscribe((res) => {
-        console.log('response loaded:', res);
-        const mapper = GtuMapper.mapDataRoutesToRoutesArray(res.data);
-        console.log('mapped response:', { mapper });
-        this.routes.set(mapper);
+    this.http.get<RoutesResponse>(environment.backEndGTU_RouteStop + '/routes', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+      observe: 'response',
+    })
+      .subscribe({
+        next: (response) => {
+          const res = response.body!;
+          const mapper = GtuMapper.mapDataRoutesToRoutesArray(res.data);
+          this.routes.set(mapper);
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            alert('No tienes permisos para acceder a las rutas. Por favor, vuelve a iniciar sesión.');
+            localStorage.clear();
+            this.router.navigate(['/login']);
+          }
+          alert('Error al cargar las rutas: ' + error.error.message);
+        }
       })
+  }
+
+  addRoute(route: Routes) {
+    this.routeSelected.set(route);
+
   }
 
 
@@ -54,28 +73,58 @@ export class GtuRoutesService {
       stops: route.stops,
       startTime: route.startTime,
       endTime: route.endTime,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+      },
+      observe: 'response',
     })
-      .subscribe((res) => {
-        console.log('Route added to backend:', res);
-        if (!Array.isArray(res.data)) {
-          const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
-          this.routes.update((prev) => [...prev, mapper]);
+      .subscribe({
+        next: (response) => {
+          const res = response.body!;
+          if (!Array.isArray(res.data)) {
+            const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
+            this.routes.update((prev) => [...prev, mapper]);
+          }
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            alert('No tienes permisos para acceder a las rutas. Por favor, vuelve a iniciar sesión.');
+            localStorage.clear();
+            this.router.navigate(['/login']);
+          }
+          alert('Error al crear la ruta: ' + error.error.message);
         }
-        console.log('All routes:', this.routes());
       });
-
   }
 
   deleteRoute(id: number) {
-    this.http.delete(environment.backEndGTU_RouteStop + '/routes/' + id)
-      .subscribe((res) => {
-        console.log('Route deleted from backend:', res);
-        this.routes.update((prev) => prev.filter((item) => item.id !== id));
+    this.http.delete(environment.backEndGTU_RouteStop + '/routes/' + id,
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        observe: 'response',
+      }
+    )
+      .subscribe({
+        next: (response) => {
+          const res = response.body!;
+          this.routes.update((prev) => prev.filter((item) => item.id !== id));
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            alert('No tienes permisos para acceder a las rutas. Por favor, vuelve a iniciar sesión.');
+            localStorage.clear();
+            this.router.navigate(['/login']);
+          }
+          alert('Error al eliminar la ruta: ' + error.error.message);
+        }
+
       });
   }
 
   routeSelectedToEdit(route: Routes) {
-    console.log('there', route)
     this.routeToEdit.set(route);
     this.neighborhoodsService.neighborhoodsSelected.set(
       this.neighborhoodsService.neighborhoods().filter((neighborhood) =>
@@ -88,12 +137,10 @@ export class GtuRoutesService {
         route.stops.some((item) => item === stop.id)
       )
     );
-    console.log('route to edit:', this.routeToEdit())
   }
 
   editRoute(form: Record<string, string>) {
     const route = this.mapRecordFormToRoute(form);
-    console.log('route to edit:', route);
     this.routeToEdit.set(route);
     this.http.put<RoutesResponse>(environment.backEndGTU_RouteStop + '/routes/' + route.id, {
       id: this.routeToEdit()!.id,
@@ -103,14 +150,31 @@ export class GtuRoutesService {
       stops: this.routeToEdit()!.stops,
       startTime: this.routeToEdit()!.startTime,
       endTime: this.routeToEdit()!.endTime,
-    }).subscribe((res) => {
-      console.log('Route edited in backend:', res);
-      if (!Array.isArray(res.data)) {
-        const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
-        this.routes.update((prev) => prev.map((item) => item.id === mapper.id ? mapper : item));
-      }
-      console.log('All routes:', this.routes());
-
-    })
+    },
+      {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
+        },
+        observe: 'response',
+      }).subscribe({
+        next: (response) => {
+          const res = response.body!;
+          if (!Array.isArray(res.data)) {
+            const mapper = GtuMapper.mapDataRoutesToRoutes(res.data);
+            this.routes.update((prev) => prev.map((item) => item.id === mapper.id ? mapper : item));
+          }
+        },
+        error: (error) => {
+          if (error.status === 401) {
+            alert('No tienes permisos para acceder a las rutas. Por favor, vuelve a iniciar sesión.');
+            localStorage.clear();
+            this.router.navigate(['/login']);
+          }
+          alert('Error al editar la ruta: ' + error.error.message);
+        }
+      })
+  }
+  clearRouteSelected() {
+    this.routeSelected.set(null);
   }
 }

@@ -13,6 +13,8 @@ export interface Form {
   type: 'text' | 'number' | 'email' | 'password' | 'checkbox' |
   'time' | 'tel' | 'date';
   value: WritableSignal<string>;
+  validation?: (value: string) => string | null;
+  error?: WritableSignal<string | null>;
 }
 
 export interface Neighborhood {
@@ -25,7 +27,16 @@ export interface Stops {
   name: string;
   description: string;
   neighborhoodId: number;
+  latitude: number;
+  longitude: number;
 
+}
+
+export interface Location{
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface Routes {
@@ -60,6 +71,10 @@ export interface User{
   status: string;
 }
 
-
+export interface AssignDriver{
+  id? : number;
+  driverId: number;
+  routeId: number;
+}
 
 

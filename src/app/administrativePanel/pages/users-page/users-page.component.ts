@@ -3,6 +3,7 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuUsersService } from '../../services/gtu-users.service';
 import { Form } from '../../interfaces/models.interface';
+import { FiltersComponent } from '../../components/filters/filters.component';
 
 @Component({
   selector: 'app-users-page',
@@ -12,10 +13,10 @@ import { Form } from '../../interfaces/models.interface';
 export default class UsersPageComponent {
   service = inject(GtuUsersService);
 
-  isEditing = computed(()=>{return this.service.userToEdit() ? true : false });
+  //filters = ['ADMIN', 'DRIVER', 'MODERATOR'];
+
 
   usersForm = computed<Form[]>(() => {
-    console.log(this.isEditing());
 
     return [
       {
@@ -23,34 +24,28 @@ export default class UsersPageComponent {
         type: 'text',
         id: 'name',
         value: signal(''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'El nombre del usuario es obligatorio' : null
       },
       {
-        title: 'Correo del usuario',
-        type: 'email',
-        id: 'email',
+        title: 'Apellido del usuario',
+        type: 'text',
+        id: 'lastname',
         value: signal(''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'El apellido del usuario es obligatorio' : null
       },
+
       {
-        title: 'Contraseña del usuario',
-        type: 'password',
-        id: 'password',
-        value: signal(''),
-      },
-      {
-        title: 'Rol del usuario',
+        title: 'Rol del usuario (DRIVER, ADMIN)',
         type: 'text',
         id: 'role',
         value: signal(''),
-      },
-      {
-        title: 'Estado del usuario',
-        type: 'text',
-        id: 'status',
-        value: signal(''),
-      },
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'El rol del usuario es obligatorio' :
+        val !== 'DRIVER' && val !== 'ADMIN' ? 'El rol del usuario debe ser DRIVER o ADMIN' : null
+      }
     ];
   });
-
-
 
  }

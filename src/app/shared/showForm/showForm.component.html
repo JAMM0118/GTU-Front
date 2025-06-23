@@ -1,6 +1,7 @@
 @if (!showForm) {
   <app-toList (openForm)="toggleForm()" [list]="list()" [buttonName]="titleForm()"
-  [titlePage]="titleList()" (deleteItem)="deleteItem.emit($event)" (itemToEdit)="itemToEdit.emit($event)"></app-toList>
+  [titlePage]="titleList()" (deleteItem)="deleteItem.emit($event)" (itemToEdit)="itemToEdit.emit($event)"
+  [filter]="showFilter()" ></app-toList>
 }
 
 @if (showForm) {

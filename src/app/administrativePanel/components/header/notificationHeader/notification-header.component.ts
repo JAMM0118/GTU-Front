@@ -6,6 +6,5 @@ import { CommonModule } from '@angular/common';
   templateUrl: './notification-header.component.html',
 })
 export class NotificationHeaderComponent {
-  // Ejemplo contador de notificaciones
   notificationCount: number = 3;
 }

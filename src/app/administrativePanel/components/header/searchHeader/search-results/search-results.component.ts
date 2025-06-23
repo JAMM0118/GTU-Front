@@ -11,8 +11,6 @@ import { SearchType } from '../../../../interfaces/models.interface';
 export class SearchResultsComponent {
   results = input.required<SearchType[]>();
 
-  //señal para saber que se ha hecho click en un resultado
-  //esto me sirve para cerrar el panel y la barra de busqueda
   resultSelected = output<SearchType>();
 
   selectResult(result: SearchType) {

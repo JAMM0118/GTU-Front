@@ -23,6 +23,7 @@ export class ShowFormComponent {
   clearItemToEdit = output<void>();
 
   showForm = false;
+  showFilter = input<boolean>(false);
 
   toggleForm(){
     this.showForm = !this.showForm;
