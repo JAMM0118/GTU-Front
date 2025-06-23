@@ -1,0 +1,9 @@
+{
+  "/api": {
+    "target": "your-backend-url.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+ }
+
+}

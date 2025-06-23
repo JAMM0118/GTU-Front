@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-toast',
@@ -6,9 +6,16 @@ import { Component, input } from '@angular/core';
 })
 export class ToastComponent {
   message= input.required<string>();
-  visible = true;
+  color = input.required<string>();
+  visible = signal(false);
 
-  ngOnInit() {
-    setTimeout(() => this.visible = false, 3000);
+  constructor() {
+    effect(() => {
+      if (this.message()) {
+        this.visible.set(true);
+        setTimeout(() => {this.visible.set(false);}, 3000);
+      }
+    });
   }
+
 }

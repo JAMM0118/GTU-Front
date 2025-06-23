@@ -37,9 +37,13 @@ yarn-error.log
 testem.log
 /typings
 
-
-src/environments/
+#proxy.conf.js
+proxy.conf.json
 
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files
+./environments/apikey.ts
+./environments/environment-prod.ts

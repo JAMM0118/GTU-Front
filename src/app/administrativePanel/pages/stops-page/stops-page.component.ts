@@ -1,5 +1,5 @@
-import { Component, signal, inject } from '@angular/core';
-import type { Form, List } from '../../interfaces/models.interface';
+import { Component, computed, inject, signal } from '@angular/core';
+import type { Form } from '../../interfaces/models.interface';
 import { HeaderComponent } from "../../components/header/header.component";
 import { ShowFormComponent } from "../../../shared/showForm/showForm.component";
 import { GtuStopsService } from '../../services/gtu-stops.service';
@@ -12,24 +12,32 @@ import { GtuStopsService } from '../../services/gtu-stops.service';
 export default class StopsPageComponent {
 
   service = inject(GtuStopsService);
+  valueEditItem = computed(() => this.service.stopToEdit());
+  isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
-  stopsForm: Form[] = [
+  stopsForm = computed<Form[]>(() => {
+    const stop = this.valueEditItem();
 
-    {
-      title: 'Nombre de la parada',
-      type: 'text',
-      id: 'name'
+    return [
+      {
+        title: 'Nombre de la parada',
+        type: 'text',
+        id: 'name',
+        value: signal(stop ? stop.name : ''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'El nombre de la parada es obligatorio' : null
 
-    },
-    {
-      title: 'Descripción',
-      type: 'text',
-      id: 'description'
-
-    },
-  ]
-
-
+      },
+      {
+        title: 'Descripción',
+        type: 'text',
+        id: 'description',
+        value: signal(stop ? stop.description : ''),
+        error: signal(null),
+        validation: (val: string) => val.trim() === '' ? 'La descripción es obligatoria' : null
+      }
+    ];
+  });
 
 
 }

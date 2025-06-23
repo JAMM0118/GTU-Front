@@ -1,0 +1,18 @@
+<div class="fixed inset-0 flex items-center justify-center bg-opacity-20 backdrop-blur-sm">
+    <div class="bg-white p-6 rounded-md shadow-md w-96">
+      <h2 class="text-lg font-bold text-black">Info de {{itemName()}}</h2>
+      <div class="mt-4">
+        <p class="text-sm text-gray-700"><strong>{{item().id ? 'ID:' : '' }}</strong> {{item().id}}</p>
+        <p class="text-sm text-gray-700"><strong>{{item().name ? 'Nombre:' : '' }}Nombre:</strong> {{item().name}}</p>
+
+        <p class="text-sm text-gray-700"><strong>{{item().description ? 'Descripción:' : '' }}</strong> {{item().description}}</p>
+        <p class="text-sm text-gray-700"><strong>{{item().startTime ? 'Hora de Inicio:' : '' }}</strong> {{item().startTime}}</p>
+        <p class="text-sm text-gray-700"><strong>{{item().endTime ? 'Hora de Fin:' : '' }}</strong> {{item().endTime}}</p>
+        <p class="text-sm text-gray-700"><strong>{{item().email ? 'Correo:' : '' }}</strong> {{item().email}}</p>
+        <p class="text-sm text-gray-700"><strong>{{item().role ? 'Rol:' : '' }}</strong> {{item().role}}</p>
+      </div>
+      <div class="mt-4 flex justify-end space-x-2">
+        <button (click)="closeModal.emit()" class="bg-green-500 px-4 py-2 rounded text-black">Cerrar</button>
+      </div>
+    </div>
+  </div>
