@@ -45,5 +45,3 @@ proxy.conf.json
 Thumbs.db
 
 # Environment files
-./environments/apikey.ts
-./environments/environment-prod.ts
