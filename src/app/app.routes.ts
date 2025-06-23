@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../auth/auth.guard';
 
 export const routes: Routes = [
 
-
   {
+    canActivate: [authGuard],
     path: 'dashboard',
+    canActivateChild: [authGuard],
     loadComponent: () => import('./administrativePanel/pages/dashboard-page/dashboard-page.component'),
     children: [
       {
@@ -27,6 +29,10 @@ export const routes: Routes = [
         loadComponent: () => import('./administrativePanel/pages/users-page/users-page.component')
       },
       {
+        path: 'assign-driver',
+        loadComponent: () => import('./administrativePanel/pages/assign-driver-page/assign-driver-page.component')
+      },
+      {
         path: '**',
         redirectTo: 'home'
       },
@@ -35,6 +41,10 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () => import('./administrativePanel/pages/login-page/login-page.component')
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./administrativePanel/pages/reset-password-page/reset-password-page.component')
   },
   {
 

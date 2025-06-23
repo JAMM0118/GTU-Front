@@ -16,7 +16,6 @@ export default class StopsPageComponent {
   isEditing = computed(()=>{return this.valueEditItem() ? true : false });
 
   stopsForm = computed<Form[]>(() => {
-    console.log(this.isEditing());
     const stop = this.valueEditItem();
 
     return [

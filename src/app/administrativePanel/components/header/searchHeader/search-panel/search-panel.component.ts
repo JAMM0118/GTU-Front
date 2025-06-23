@@ -34,7 +34,6 @@ export class SearchPanelComponent implements OnChanges {
     setTimeout(() => {
       const stops = this.stopService.stops().map(s => ({ name: s.name, type: 'parada' as const }));
       const routes = this.routeService.routes().map(r => ({ name: r.name, type: 'ruta' as const }));
-      // Aqui se intercalan los resultados de las paradas y rutas
       const intercalados: SearchType[] = [];
       for (let i = 0; i < (Math.max(stops.length, routes.length)); i++) {
         if (routes[i]) intercalados.push(routes[i]);

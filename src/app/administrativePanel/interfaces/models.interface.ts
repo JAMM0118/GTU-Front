@@ -27,7 +27,16 @@ export interface Stops {
   name: string;
   description: string;
   neighborhoodId: number;
+  latitude: number;
+  longitude: number;
 
+}
+
+export interface Location{
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
 }
 
 export interface Routes {
@@ -62,6 +71,10 @@ export interface User{
   status: string;
 }
 
-
+export interface AssignDriver{
+  id? : number;
+  driverId: number;
+  routeId: number;
+}
 
 

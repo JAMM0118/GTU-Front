@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class FiltersComponent {
   selectedFilters = input<string[]>([]);
-  filterChange = output<string[]>(); 
+  filterChange = output<string[]>();
 
   availableFilters = input<string[]>([]);
 
@@ -17,7 +17,6 @@ export class FiltersComponent {
     return this.selectedFilters().includes(filter);
   }
 
-  //Filtros seleccionados 
   toggleFilter(filter: string): void {
     const index = this.selectedFilters().indexOf(filter);
     if (index >= 0) {
@@ -25,6 +24,6 @@ export class FiltersComponent {
     } else {
       this.selectedFilters().push(filter);
     }
-    this.filterChange.emit([...this.selectedFilters()]); 
+    this.filterChange.emit([...this.selectedFilters()]);
   }
 }

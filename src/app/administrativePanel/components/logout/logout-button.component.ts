@@ -23,7 +23,6 @@ export class LogoutButtonComponent {
   confirmLogout() {
     this.showLogoutModal.set(false);
     this.authService.logout();
-    this.router.navigate(['/login']);
 
   }
 }

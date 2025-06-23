@@ -1,5 +1,5 @@
-import {Neighborhood, Routes, Stops, User } from "../interfaces/models.interface"
-import { DataNeighborhood, DataRoutes, DataStops, DataUsers} from "../interfaces/reponses.interface"
+import {AssignDriver, Neighborhood, Routes, Stops, User } from "../interfaces/models.interface"
+import { DataAssignDriver, DataNeighborhood, DataRoutes, DataStops, DataUsers} from "../interfaces/reponses.interface"
 
 export class GtuMapper{
   static mapDataNeighborhoodToNeighborhood(item:  DataNeighborhood): Neighborhood{
@@ -17,6 +17,8 @@ export class GtuMapper{
         name: item.name,
         description: item.description,
         neighborhoodId: item.neighborhoodId,
+        latitude: item.latitude,
+        longitude: item.longitude,
     }
   }
 
@@ -39,6 +41,16 @@ export class GtuMapper{
     return items.map(this.mapDataUsersToUser)
   }
 
+  static mapDataAssignDriverToAssignDriver(item:  DataAssignDriver): AssignDriver{
+    return {
+        id: item.id,
+        driverId: item.driverId,
+        routeId: item.routeId,
+      }
+  }
+  static mapDataAssignDriverToAssignDriverArray(items : DataAssignDriver[]): AssignDriver[] {
+    return items.map(this.mapDataAssignDriverToAssignDriver)
+  }
 
   static mapDataRoutesToRoutes(item: DataRoutes): Routes{
     return {

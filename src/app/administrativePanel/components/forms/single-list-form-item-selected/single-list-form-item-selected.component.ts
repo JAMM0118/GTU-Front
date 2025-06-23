@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, viewChild, AfterViewInit, ViewChild } from '@angular/core';
 import { GtuNeighborhoodsService } from '../../../services/gtu-neighborhoods.service';
 
 @Component({
@@ -6,9 +6,14 @@ import { GtuNeighborhoodsService } from '../../../services/gtu-neighborhoods.ser
   imports: [],
   templateUrl: './single-list-form-item-selected.component.html',
 })
-export class SingleListFormComponent {
-  neighborhoodService = inject(GtuNeighborhoodsService);
+export class SingleListFormComponent{
 
+  neighborhoodService = inject(GtuNeighborhoodsService);
+  isDropdownOpen = true;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
   ngOnDestroy() {
     this.neighborhoodService.clearNeighborhoodsSelected();
 

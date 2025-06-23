@@ -1,4 +1,4 @@
-import { Component, inject, input} from '@angular/core';
+import { Component, inject, input, output} from '@angular/core';
 import { GtuNeighborhoodsService } from '../../../services/gtu-neighborhoods.service';
 import { GtuStopsService } from '../../../services/gtu-stops.service';import { Stops } from '../../../interfaces/models.interface';
 ;
@@ -10,6 +10,7 @@ import { GtuStopsService } from '../../../services/gtu-stops.service';import { S
 })
 export class MutipleItemsSelectedListComponent {
   bandera = input.required<boolean>();
+  isDropdownOpen = output();
   stopsService = inject(GtuStopsService);
   neighborhoodService = inject(GtuNeighborhoodsService);
 
@@ -20,9 +21,7 @@ export class MutipleItemsSelectedListComponent {
   }
 
   toggleDropdown() {
-      this.bandera() ?
-      document.getElementById('dropdownNeighboorHood')?.classList.toggle('hidden')
-      :document.getElementById('dropdownStops')?.classList.toggle('hidden');
+      this.isDropdownOpen.emit();
   }
 
   ngOnDestroy() {

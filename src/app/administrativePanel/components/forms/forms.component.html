@@ -34,6 +34,11 @@
   }
   @if(banderaRouteOrStop() =='stop'){
     <app-single-list-form/>
+
+    <div class="w-3/4 mx-auto m-5 h-full">
+
+      <app-locations [isEditing]="isEditing()"/>
+    </div>
   }
 </div>
 

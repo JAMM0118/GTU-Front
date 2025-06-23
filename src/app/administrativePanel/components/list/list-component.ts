@@ -3,22 +3,24 @@ import { Routes, Stops, User } from "../../interfaces/models.interface";
 import { ConfirmModalComponent } from "../confirm-modal/confirm-modal.component";
 import { CommonModule } from "@angular/common";
 import { FiltersComponent } from "../filters/filters.component";
+import { InfoModalComponent } from "../infoModal/infoModal.component";
 
 
 @Component({
   selector: 'app-toList',
   templateUrl: './list-component.html',
-  imports: [ConfirmModalComponent,CommonModule, FiltersComponent],
+  imports: [ConfirmModalComponent, CommonModule, FiltersComponent, InfoModalComponent],
 })
 export class ToLisComponent {
-[x: string]: any;
   reportsOpen = false;
   openForm = output<void>();
   itemToEdit = output<Stops | Routes | User>();
   deleteItem = output<number>();
+  currentRole = localStorage.getItem('userRole');
   buttonName = input.required<string>();
   titlePage = input.required<string>();
-  list = input.required< Routes[] | Stops[] | User[]>();
+  list = input.required<any>();
+  showInfoModal = signal(false);
 
   isEdit = signal(false);
   showModal = signal(false);
@@ -28,9 +30,8 @@ export class ToLisComponent {
   selectedFilters = signal<string[]>([]);
 
   filteredList() {
-    // Si no hay filtros muestra toda la lista
     if (this.selectedFilters().length === 0) return this.list();
-    //Filtra por rol
+
     return this.list().filter((item: any) =>
       this.selectedFilters().includes(item.role)
     );
@@ -52,10 +53,13 @@ export class ToLisComponent {
     this.itemChosen.set(item);
     this.showModal.set(true);
   }
-
+  openInfoModal(item: Stops | Routes | User) {
+    this.itemChosen.set(item);
+    this.showInfoModal.set(true);
+  }
   closeModal() {
-    console.log(this.list());
     this.showModal.set(false);
+    this.showInfoModal.set(false);
     this.itemChosen.set(null);
   }
 
@@ -72,7 +76,6 @@ export class ToLisComponent {
   }
 
   confirmModal() {
-    console.log('here',this.itemChosen());
       this.isEdit() ? this.editItemList()
       :     this.deleteItemList();
     this.showModal.set(false);

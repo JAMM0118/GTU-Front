@@ -3,10 +3,11 @@ import type { Form } from '../../interfaces/models.interface';
 import { ToastComponent } from "../toast/toast.component";
 import { MutipleItemsListComponent } from "./multiple-items-list-form/multiple-items-list.component";
 import { SingleListFormComponent } from "./single-list-form-item-selected/single-list-form-item-selected.component";
+import { LocationsComponent } from "../locations/locations.component";
 
 @Component({
   selector: 'app-forms',
-  imports: [ToastComponent, SingleListFormComponent, MutipleItemsListComponent],
+  imports: [ToastComponent, SingleListFormComponent, MutipleItemsListComponent, LocationsComponent],
   templateUrl: './forms.component.html',
 })
 export class FormsComponent {
@@ -34,7 +35,6 @@ export class FormsComponent {
   goComeBackList() {
     this.comeBackList.emit();
   }
-  // Captura todos los inputs con la referencia inputRef en el DOM
   inputs = viewChildren<ElementRef<HTMLInputElement>>('inputRef');
   sendForm() {
     this.toastColor.set('');
@@ -59,7 +59,6 @@ export class FormsComponent {
               this.toastColor.set('red');
               this.toastMessage.set('Error en el formulario, por favor verifique los campos');
             },0);
-            console.log('Error en el formulario, por favor verifique los campos');
             return;
           }
         }
@@ -70,8 +69,6 @@ export class FormsComponent {
       this.toastColor.set('green');
       this.toastMessage.set('Formulario enviado correctamente');
     }, 0);
-    console.log('Formulario a enviar:', formValues);
-
     this.isEditing() ? this.editItem.emit(formValues) :
     this.createItem.emit(formValues);
 

@@ -6,7 +6,7 @@ import { GtuRoutesService } from '../../services/gtu-routes.service';
 
 @Component({
   selector: 'app-routes-page',
-  imports: [ HeaderComponent, ShowFormComponent],
+  imports: [HeaderComponent, ShowFormComponent],
   templateUrl: './routes-page.component.html',
 })
 export default class RoutesPageComponent {
@@ -17,7 +17,6 @@ export default class RoutesPageComponent {
 
 
   routeForm = computed<Form[]>(() => {
-      console.log(this.isEditing());
       const route = this.valueEditItem();
       return[
 

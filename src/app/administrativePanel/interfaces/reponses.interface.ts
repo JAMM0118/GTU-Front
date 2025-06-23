@@ -40,7 +40,6 @@ export interface DataRoutes {
   stops:           number[];
 }
 
-
 export interface UsersResponse {
   message: string;
   data:    DataUsers[];
@@ -57,9 +56,31 @@ export interface DataUsers {
 }
 
 export interface LoginResponse {
+  message: string;
+  data:    DataLogin;
+  status:  number;
+
+}
+export interface DataLogin {
+
   accessToken: string;
   userId:      number;
   name:        string;
   email:       string;
   role:        string;
+}
+
+export interface AssignDriverResponse {
+  message: string;
+  data:    DataAssignDriver[];
+  status:  number;
+}
+
+export interface DataAssignDriver {
+  id:            number;
+  driverId:      number;
+  routeId:       number;
+  currentStopId: number;
+  latestStopId:  number;
+  nextStopId:    number;
 }

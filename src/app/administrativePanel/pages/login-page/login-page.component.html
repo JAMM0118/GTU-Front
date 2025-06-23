@@ -1,4 +1,7 @@
 <div class="min-h-screen bg-[#4596e1] flex items-center justify-center">
+
+  @if(showLogin()){
+
   <div class="bg-white p-8 rounded-lg shadow-lg w-[450px]">
     <div class="flex items-center justify-center mb-6">
       <h1 class="text-[#50C878] font-bold text-2xl">GTU</h1>
@@ -39,17 +42,65 @@
       </button>
 
       <div class="mt-4 text-center">
-        <a href="#" class="text-black underline text-sm">Recuperar contraseña</a>
+        <a (click)="showLogin.set(false)" class="text-black cursor-pointer underline text-sm">Recuperar contraseña</a>
       </div>
     </form>
     @if (isLoading()) {
 
-      <app-loading-modal />
+    <app-loading-modal />
     }
     @if(errorResponse()){
 
-      <app-response-backend-modal [message]="errorResponseMessage()" title="Error"
-      (close)="errorResponse.set(false)"/>
+    <app-response-backend-modal [message]="errorResponseMessage()" title="Error" (close)="errorResponse.set(false)" />
     }
+  </div>
+
+  }
+  @if(!showLogin()){
+
+
+  <div class="bg-white p-8 rounded-lg shadow-lg w-[450px]">
+    <div class="flex items-center justify-center mb-6">
+      <h1 class="text-[#50C878] font-bold text-2xl">GTU</h1>
     </div>
+    <form (ngSubmit)="onSubmitResetPassword()">
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-semibold mb-1">Email:</label>
+        <input required id="email" type="email" [value]="email()" (input)="email.set(txtEmail.value)" #txtEmail
+          placeholder="Ingrese su correo" class="w-full px-4 py-2 bg-[#a4d3dd] rounded-md focus:outline-none" />
+        @if (errors().email?.length) {
+        <div class="text-red-600 text-sm mt-1">
+          {{ errors().email }}
+        </div>
+        }
+      </div>
+
+
+      <button type="submit"
+        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-md transition">
+        Enviar enlace de recuperación
+      </button>
+
+      <div class="mt-4 text-center">
+        <a href="#" class="text-black cursor-pointer underline text-sm">Volver al login</a>
+      </div>
+    </form>
+  </div>
+
+  @if(showInfoModal()){
+    <app-info-modal
+    (closeModal)="showInfoModal.set(false)"
+    [itemName]="'Revise su correo para continuar con el proceso de recuperación de contraseña.'"
+    />
+  }
+  @if (isLoading()) {
+
+    <app-loading-modal />
+    }
+
+    @if(errorResponse()){
+
+    <app-response-backend-modal [message]="errorResponseMessage()" title="Error" (close)="errorResponse.set(false)" />
+    }
+  }
 </div>

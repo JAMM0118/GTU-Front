@@ -15,10 +15,8 @@ export default class UsersPageComponent {
 
   //filters = ['ADMIN', 'DRIVER', 'MODERATOR'];
 
-  isEditing = computed(()=>{return this.service.userToEdit() ? true : false });
 
   usersForm = computed<Form[]>(() => {
-    console.log(this.isEditing());
 
     return [
       {
@@ -39,12 +37,13 @@ export default class UsersPageComponent {
       },
 
       {
-        title: 'Rol del usuario',
+        title: 'Rol del usuario (DRIVER, ADMIN)',
         type: 'text',
         id: 'role',
         value: signal(''),
         error: signal(null),
-        validation: (val: string) => val.trim() === '' ? 'El rol del usuario es obligatorio' : null
+        validation: (val: string) => val.trim() === '' ? 'El rol del usuario es obligatorio' :
+        val !== 'DRIVER' && val !== 'ADMIN' ? 'El rol del usuario debe ser DRIVER o ADMIN' : null
       }
     ];
   });

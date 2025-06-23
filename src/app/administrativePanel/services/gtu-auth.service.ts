@@ -21,21 +21,64 @@ export class GtuAuthService {
     { observe: 'response' }) .subscribe({
       next: (response) => {
       const res = response.body!;
-      console.log('✅ Login correcto:', res);
-      localStorage.setItem('userName', res.name);
-      localStorage.setItem('accessToken', res.accessToken);
-      localStorage.setItem('userRole',res.role);
+      if(res.data.role == 'DRIVER') {
+        this.responseStatus.set(403);
+        this.responseMessage.set('No tienes permisos para acceder a esta aplicación.');
+        return;
+
+      }
+      localStorage.setItem('userName', res.data.name);
+      localStorage.setItem('accessToken', res.data.accessToken);
+      localStorage.setItem('userRole',res.data.role);
       this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.responseStatus.set(error.status);
-        console.log('❌ Login incorrecto:', error.status);
-        console.log('❌ Login incorrecto:', error.error.message);
+        this.responseMessage.set(error.error.message);
+      }
+    })
+  }
+
+  resetPassword(email: string) {
+    this.http.post<LoginResponse>(environment.backEndGTU_ResetPasswordRequest,null,
+    { observe: 'response',
+      params: {
+        email: email,
+      }
+     }) .subscribe({
+      next: (response) => {
+      const res = response.body!;
+      this.responseStatus.set(res.status);
+      },
+      error: (error) => {
+        this.responseStatus.set(error.status);
+        this.responseMessage.set(error.error.message);
+      }
+    })
+
+  }
+
+
+  changePassword(newPassword: string, token: string) {
+    this.http.post<LoginResponse>(environment.backEndGTU_ChangePassword,null,
+    { observe: 'response',
+      params: {
+        token: token,
+        newPassword: newPassword,
+      }
+     }) .subscribe({
+      next: (response) => {
+      const res = response.body!;
+      this.responseStatus.set(res.status);
+      },
+      error: (error) => {
+        this.responseStatus.set(error.status);
         this.responseMessage.set(error.error.message);
       }
     })
   }
   logout() {
     localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
