@@ -45,7 +45,8 @@ export default class ResetPasswordPageComponent implements OnInit{
 
     }
 
-    onSubmitResetPassword(){
+    onSubmitResetPassword(event: Event){
+      event.preventDefault();
       this.submitted.set(true);
       if(this.validateResetPassword()) {
         this.isLoading.set(true);
@@ -62,11 +63,11 @@ export default class ResetPasswordPageComponent implements OnInit{
           return;
         };
 
+
         this.isLoading.set(false);
         this.showInfoModal.set(true);
         this.submitted.set(false);
         this.password.set('');
-        this.auth.logout();
       }, 2000);
 
 
